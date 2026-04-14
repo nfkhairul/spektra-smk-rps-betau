@@ -6,11 +6,11 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="SMK RPS Betau">
+<meta name="apple-mobile-web-app-title" content="OSC RPS Betau">
 <meta name="theme-color" content="#0071e3">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>Dashboard Pelajar SMK RPS Betau</title>
+<title>One Stop Centre SMK RPS Betau</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
@@ -37,7 +37,6 @@
   .school-logo { width: 38px; height: 38px; border-radius: 9px; overflow: hidden; flex-shrink: 0; }
   .school-name { font-size: 15px; font-weight: 600; color: var(--text); }
   .school-meta { font-size: 12px; color: var(--text2); }
-  .date-badge { font-size: 12px; color: var(--text2); background: var(--surface2); padding: 4px 12px; border-radius: 20px; border: 1px solid var(--border); }
 
   .layout { display: flex; min-height: calc(100vh - 56px); }
   
@@ -166,7 +165,6 @@
     .topbar { padding: 0 14px; height: 52px; }
     .school-name { font-size: 13px; }
     .school-meta { font-size: 11px; }
-    .date-badge { font-size: 11px; padding: 3px 9px; }
     .page-title { font-size: 22px; }
     .stat-value { font-size: 26px; }
     .chart-card { padding: 16px; }
@@ -214,6 +212,37 @@
     .bottom-nav-item.active .bnav-icon { filter: none; }
     .layout { padding-bottom: 0; }
   }
+
+  @media (max-width: 768px) {
+    #spmIframe { height: calc(100vh - 56px - 72px) !important; }
+  }
+
+  /* STAFF PAGE */
+  .staff-filter-bar { background: var(--surface); border-radius: var(--radius); padding: 14px 18px; box-shadow: var(--shadow); border: 1px solid var(--border); margin-bottom: 16px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .staff-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; }
+  .staff-tab { padding: 7px 16px; border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: var(--surface); color: var(--text2); transition: all 0.15s; user-select: none; }
+  .staff-tab:hover { background: var(--surface2); color: var(--text); }
+  .staff-tab.active { background: var(--accent); color: white; border-color: var(--accent); }
+  .staff-section-title { font-size: 11px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; padding: 16px 0 8px; display: flex; align-items: center; gap: 8px; }
+  .staff-section-title::after { content:''; flex:1; height:1px; background: var(--border); }
+  .staff-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; margin-bottom: 8px; }
+  .staff-card { background: var(--surface); border-radius: 12px; padding: 14px 16px; border: 1px solid var(--border); display: flex; align-items: center; gap: 14px; transition: box-shadow 0.15s, transform 0.15s; cursor: default; }
+  .staff-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); transform: translateY(-1px); }
+  .staff-avatar { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; color: white; flex-shrink: 0; }
+  .staff-info { flex: 1; min-width: 0; }
+  .staff-name { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .staff-jawatan { font-size: 11px; color: var(--text2); margin-top: 2px; }
+  .staff-bidang { font-size: 11px; color: var(--accent); margin-top: 1px; font-weight: 500; }
+  .staff-gred { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 10px; background: var(--surface2); color: var(--text2); white-space: nowrap; flex-shrink: 0; }
+  .staff-stat-row { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+  .staff-stat { background: var(--surface); border-radius: 10px; padding: 12px 16px; border: 1px solid var(--border); flex: 1; min-width: 100px; }
+  .staff-stat-val { font-size: 22px; font-weight: 700; color: var(--accent); }
+  .staff-stat-lbl { font-size: 11px; color: var(--text2); margin-top: 2px; }
+  @media (max-width: 768px) {
+    .staff-grid { grid-template-columns: 1fr; }
+    .staff-name { white-space: normal; }
+  }
+
 </style>
 </head>
 <body>
@@ -222,11 +251,11 @@
   <div class="topbar-left">
     <div class="school-logo" style="background:none;padding:0;overflow:hidden;"><img src="data:image/png;base64,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" alt="Logo SMK RPS Betau" style="width:100%;height:100%;object-fit:cover;border-radius:9px;"></div>
     <div>
-      <div class="school-name">Dashboard Pelajar SMK RPS Betau</div>
+      <div class="school-name">One Stop Centre SMK RPS Betau</div>
       <div class="school-meta">CEA3060 &middot; Kuala Lipis, Pahang</div>
     </div>
   </div>
-  <div class="date-badge">31 Mac 2026</div>
+  
 </div>
 
 <div class="layout">
@@ -238,6 +267,9 @@
     <div class="nav-item" onclick="navigate('students',this)">
       <span class="icon">👤</span> Maklumat Pelajar
     </div>
+    <div class="nav-item" onclick="navigate('staff',this)">
+      <span class="icon">👨‍🏫</span> Guru &amp; Staf
+    </div>
     <div class="nav-label">Rekod</div>
     <div class="nav-item" onclick="navigate('attendance',this)">
       <span class="icon">📅</span> Kehadiran Bulanan
@@ -248,6 +280,7 @@
     <div class="nav-item" onclick="navigate('discipline',this)">
       <span class="icon">📋</span> Laporan Disiplin
     </div>
+
   </aside>
 
   <main class="content">
@@ -255,7 +288,7 @@
     <!-- OVERVIEW -->
     <div id="overview" class="section active">
       <div class="page-title">Gambaran Keseluruhan</div>
-      <div class="page-subtitle">Statistik dan analitik sekolah sehingga 31 Mac 2026</div>
+      <div class="page-subtitle">Statistik dan analitik sekolah SMK RPS Betau</div>
       <div class="stats-grid" id="statsGrid"></div>
       <div class="charts-grid">
         <div class="chart-card">
@@ -370,6 +403,25 @@
       </div>
     </div>
 
+    <!-- STAFF SECTION -->
+    <div id="staff" class="section">
+      <div class="page-title">Guru &amp; Staf</div>
+      <div class="page-subtitle">Senarai Perjawatan SMK RPS Betau</div>
+
+      <div class="staff-stat-row" id="staffStats"></div>
+
+      <div class="staff-tabs">
+        <div class="staff-tab active" onclick="filterStaff('semua',this)">Semua</div>
+        <div class="staff-tab" onclick="filterStaff('guru',this)">Guru</div>
+        <div class="staff-tab" onclick="filterStaff('staf',this)">Staf Sokongan</div>
+      </div>
+
+      <div class="staff-filter-bar">
+        <input class="search-input" id="staffSearch" type="text" placeholder="🔍  Cari nama atau bidang..." oninput="renderStaff()">
+      </div>
+
+      <div id="staffList"></div>
+    </div>
   </main>
 </div>
 
@@ -389,6 +441,10 @@
     <span class="bnav-icon">👤</span>
     <span class="bnav-label">Pelajar</span>
   </button>
+  <button class="bottom-nav-item" id="bnav-staff" onclick="navigate('staff',this); setBottomNav('bnav-staff')">
+    <span class="bnav-icon">👨‍🏫</span>
+    <span class="bnav-label">Guru &amp; Staf</span>
+  </button>
   <button class="bottom-nav-item" id="bnav-attendance" onclick="navigate('attendance',this); setBottomNav('bnav-attendance')">
     <span class="bnav-icon">📅</span>
     <span class="bnav-label">Kehadiran</span>
@@ -401,6 +457,7 @@
     <span class="bnav-icon">📋</span>
     <span class="bnav-label">Disiplin</span>
   </button>
+
 </div>
 
 <!-- STUDENT DATA -->
@@ -419,9 +476,11 @@ function navigate(section, el) {
   document.getElementById(section).classList.add('active');
   if (el) el.classList.add('active');
   // Sync bottom nav
-  const map = { overview:'bnav-overview', students:'bnav-students', attendance:'bnav-attendance', cocurriculum:'bnav-cocurriculum', discipline:'bnav-discipline' };
+  const map = { overview:'bnav-overview', students:'bnav-students', attendance:'bnav-attendance', cocurriculum:'bnav-cocurriculum', discipline:'bnav-discipline', staff:'bnav-staff' };
   setBottomNav(map[section]);
+  // Init SPM charts when first opened
   // Scroll to top on mobile
+  if (section === 'staff') { buildStaffStats(); renderStaff(); }
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -728,7 +787,880 @@ buildF5Grid();
 buildFilters();
 filterStudents();
 </script>
+<script>
 
+// ===== SPM DASHBOARD =====
+let spmInitialized = false;
+function initSPMDashboard() {
+  if (spmInitialized) return;
+  spmInitialized = true;
+  (function() {
+
+const SPM_STUDENTS = [
+  { id:'CL028A001', name:'Adzril Yussha bin Kamarud-Din', ic:'081227-10-1605', cefr:'B1', cefrSkills:{reading:'B1',writing:'B1',speaking:'A2',listening:'B1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'B+',label:'Kepujian Tertinggi'},{code:'1119',sub:'Bahasa Inggeris',grade:'C',label:'Kepujian'},{code:'1225',sub:'Pendidikan Moral',grade:'A-',label:'Cemerlang'},{code:'1249',sub:'Sejarah',grade:'B+',label:'Kepujian Tertinggi'},{code:'1449',sub:'Matematik',grade:'A',label:'Cemerlang Tinggi'},{code:'1511',sub:'Sains',grade:'A',label:'Cemerlang Tinggi'},{code:'7203',sub:'Pemprosesan Makanan',grade:'A+',label:'Cemerlang Tertinggi'}]},
+  { id:'CL028A002', name:'Aemiey Naidia A/P Ami', ic:'080507-06-0452', cefr:'A2', cefrSkills:{reading:'A2',writing:'A2',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'C+',label:'Kepujian Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'E',label:'Lulus'},{code:'1225',sub:'Pendidikan Moral',grade:'B+',label:'Kepujian Tertinggi'},{code:'1249',sub:'Sejarah',grade:'C+',label:'Kepujian Atas'},{code:'1449',sub:'Matematik',grade:'E',label:'Lulus'},{code:'1511',sub:'Sains',grade:'B',label:'Kepujian Tinggi'},{code:'7203',sub:'Pemprosesan Makanan',grade:'A',label:'Cemerlang Tinggi'}]},
+  { id:'CL028A003', name:'Airril A/L Ababil', ic:'080119-06-0573', cefr:'A1', cefrSkills:{reading:'A2',writing:'Pre A1',speaking:'A2',listening:'Pre A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'E',label:'Lulus'},{code:'1249',sub:'Sejarah',grade:'E',label:'Lulus'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'E',label:'Lulus'},{code:'7203',sub:'Pemprosesan Makanan',grade:'B+',label:'Kepujian Tertinggi'}]},
+  { id:'CL028A004', name:'Ana A/P Sribani', ic:'080805-06-0434', cefr:'A2', cefrSkills:{reading:'A2',writing:'A2',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'C',label:'Kepujian'},{code:'1119',sub:'Bahasa Inggeris',grade:'E',label:'Lulus'},{code:'1225',sub:'Pendidikan Moral',grade:'C+',label:'Kepujian Atas'},{code:'1249',sub:'Sejarah',grade:'C',label:'Kepujian'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'D',label:'Lulus Atas'},{code:'7203',sub:'Pemprosesan Makanan',grade:'A-',label:'Cemerlang'}]},
+  { id:'CL028A005', name:'Azffudy A/L Adenan', ic:'080709-06-0629', cefr:'A1', cefrSkills:{reading:'A2',writing:'A1',speaking:'A1',listening:'Pre A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'B',label:'Kepujian Tinggi'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'B',label:'Kepujian Tinggi'},{code:'1249',sub:'Sejarah',grade:'A-',label:'Cemerlang'},{code:'1449',sub:'Matematik',grade:'E',label:'Lulus'},{code:'1511',sub:'Sains',grade:'C+',label:'Kepujian Atas'},{code:'7203',sub:'Pemprosesan Makanan',grade:'A-',label:'Cemerlang'}]},
+  { id:'CL028A006', name:'Bah Elvis A/L Mahadir', ic:'081201-06-0593', cefr:'A1', cefrSkills:{reading:'A2',writing:'A1',speaking:'A1',listening:'A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'E',label:'Lulus'},{code:'1225',sub:'Pendidikan Moral',grade:'D',label:'Lulus Atas'},{code:'1249',sub:'Sejarah',grade:'D',label:'Lulus Atas'},{code:'1449',sub:'Matematik',grade:'E',label:'Lulus'},{code:'1511',sub:'Sains',grade:'D',label:'Lulus Atas'},{code:'7203',sub:'Pemprosesan Makanan',grade:'C',label:'Kepujian'}]},
+  { id:'CL028A007', name:'Bah Enos A/L Azhar', ic:'080421-06-0515', cefr:'A2', cefrSkills:{reading:'A2',writing:'A1',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'B',label:'Kepujian Tinggi'},{code:'1119',sub:'Bahasa Inggeris',grade:'E',label:'Lulus'},{code:'1225',sub:'Pendidikan Moral',grade:'C+',label:'Kepujian Atas'},{code:'1249',sub:'Sejarah',grade:'C',label:'Kepujian'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'C+',label:'Kepujian Atas'},{code:'7203',sub:'Pemprosesan Makanan',grade:'A-',label:'Cemerlang'}]},
+  { id:'CL028A008', name:'Diana A/P Osman', ic:'080618-06-0498', cefr:'A2', cefrSkills:{reading:'A2',writing:'A1',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'D',label:'Lulus Atas'},{code:'1249',sub:'Sejarah',grade:'E',label:'Lulus'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'E',label:'Lulus'},{code:'7203',sub:'Pemprosesan Makanan',grade:'A-',label:'Cemerlang'}]},
+  { id:'CL028A009', name:'Herlizanadia A/P Sakree', ic:'080712-06-0566', cefr:'A2', cefrSkills:{reading:'A2',writing:'A2',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'C',label:'Kepujian'},{code:'1119',sub:'Bahasa Inggeris',grade:'E',label:'Lulus'},{code:'1225',sub:'Pendidikan Moral',grade:'C',label:'Kepujian'},{code:'1249',sub:'Sejarah',grade:'D',label:'Lulus Atas'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'D',label:'Lulus Atas'},{code:'7203',sub:'Pemprosesan Makanan',grade:'A',label:'Cemerlang Tinggi'}]},
+  { id:'CL028A010', name:'Johatista A/L Johaini', ic:'080513-06-0539', cefr:'A2', cefrSkills:{reading:'A2',writing:'A1',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'E',label:'Lulus'},{code:'1225',sub:'Pendidikan Moral',grade:'C',label:'Kepujian'},{code:'1249',sub:'Sejarah',grade:'D',label:'Lulus Atas'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'D',label:'Lulus Atas'},{code:'7203',sub:'Pemprosesan Makanan',grade:'B+',label:'Kepujian Tertinggi'}]},
+  { id:'CL028A011', name:'Khairul Asmie A/L Bah Rumie', ic:'080229-06-0195', cefr:'A2', cefrSkills:{reading:'A2',writing:'A2',speaking:'B1',listening:'A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'C',label:'Kepujian'},{code:'1119',sub:'Bahasa Inggeris',grade:'E',label:'Lulus'},{code:'1225',sub:'Pendidikan Moral',grade:'C+',label:'Kepujian Atas'},{code:'1249',sub:'Sejarah',grade:'C+',label:'Kepujian Atas'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'D',label:'Lulus Atas'},{code:'7203',sub:'Pemprosesan Makanan',grade:'A',label:'Cemerlang Tinggi'}]},
+  { id:'CL028A012', name:'Riezuan A/L Bah Darus', ic:'080923-06-0443', cefr:'A2', cefrSkills:{reading:'A2',writing:'A2',speaking:'A2',listening:'Pre A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'C+',label:'Kepujian Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'E',label:'Lulus'},{code:'1225',sub:'Pendidikan Moral',grade:'C',label:'Kepujian'},{code:'1249',sub:'Sejarah',grade:'D',label:'Lulus Atas'},{code:'1449',sub:'Matematik',grade:'E',label:'Lulus'},{code:'1511',sub:'Sains',grade:'D',label:'Lulus Atas'},{code:'7203',sub:'Pemprosesan Makanan',grade:'A',label:'Cemerlang Tinggi'}]},
+  { id:'CL028A013', name:'Rosafika A/P Rossy', ic:'080826-06-0900', cefr:'A2', cefrSkills:{reading:'A2',writing:'A1',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'D',label:'Lulus Atas'},{code:'1249',sub:'Sejarah',grade:'E',label:'Lulus'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'D',label:'Lulus Atas'},{code:'7203',sub:'Pemprosesan Makanan',grade:'C+',label:'Kepujian Atas'}]},
+  { id:'CL028A014', name:'Roshaliza Nazreen A/P Rosli', ic:'081214-06-0568', cefr:'A2', cefrSkills:{reading:'A2',writing:'A2',speaking:'B1',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'E',label:'Lulus'},{code:'1225',sub:'Pendidikan Moral',grade:'C',label:'Kepujian'},{code:'1249',sub:'Sejarah',grade:'E',label:'Lulus'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'C',label:'Kepujian'},{code:'7203',sub:'Pemprosesan Makanan',grade:'B',label:'Kepujian Tinggi'}]},
+  { id:'CL028A015', name:'Sapuan A/L Azuan', ic:'080524-06-0585', cefr:'A2', cefrSkills:{reading:'A2',writing:'A2',speaking:'B1',listening:'A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'B',label:'Kepujian Tinggi'},{code:'1119',sub:'Bahasa Inggeris',grade:'D',label:'Lulus Atas'},{code:'1225',sub:'Pendidikan Moral',grade:'B+',label:'Kepujian Tertinggi'},{code:'1249',sub:'Sejarah',grade:'C+',label:'Kepujian Atas'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'C+',label:'Kepujian Atas'},{code:'2611',sub:'Pend. Seni Visual',grade:'B+',label:'Kepujian Tertinggi'},{code:'7203',sub:'Pemprosesan Makanan',grade:'B',label:'Kepujian Tinggi'}]},
+  { id:'CL028A016', name:'Tinisuliani A/P Harry', ic:'080311-06-0856', cefr:'A2', cefrSkills:{reading:'A2',writing:'A2',speaking:'B1',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'C+',label:'Kepujian Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'E',label:'Lulus'},{code:'1225',sub:'Pendidikan Moral',grade:'B+',label:'Kepujian Tertinggi'},{code:'1249',sub:'Sejarah',grade:'C',label:'Kepujian'},{code:'1449',sub:'Matematik',grade:'E',label:'Lulus'},{code:'1511',sub:'Sains',grade:'C+',label:'Kepujian Atas'},{code:'7203',sub:'Pemprosesan Makanan',grade:'A',label:'Cemerlang Tinggi'}]},
+  { id:'CL028A017', name:'Janifazliyana A/P Tani', ic:'081220-06-0054', cefr:'A1', cefrSkills:{reading:'A2',writing:'Pre A1',speaking:'A1',listening:'A1'}, sijil:'PERNYATAAN', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'E',label:'Lulus'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'G',label:'Gagal'},{code:'1249',sub:'Sejarah',grade:'G',label:'Gagal'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'G',label:'Gagal'},{code:'7203',sub:'Pemprosesan Makanan',grade:'D',label:'Lulus Atas'}]},
+  { id:'CL028A018', name:'Julia A/P Mat', ic:'081012-06-0228', cefr:'A1', cefrSkills:{reading:'A2',writing:'Pre A1',speaking:'A1',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'E',label:'Lulus'},{code:'1249',sub:'Sejarah',grade:'E',label:'Lulus'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'G',label:'Gagal'},{code:'7203',sub:'Pemprosesan Makanan',grade:'B',label:'Kepujian Tinggi'}]},
+  { id:'CL028A019', name:'Mariah A/P Rosman', ic:'081013-06-0350', cefr:'A1', cefrSkills:{reading:'A2',writing:'Pre A1',speaking:'A1',listening:'A1'}, sijil:'PERNYATAAN', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'E',label:'Lulus'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'G',label:'Gagal'},{code:'1249',sub:'Sejarah',grade:'G',label:'Gagal'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'G',label:'Gagal'},{code:'7203',sub:'Pemprosesan Makanan',grade:'E',label:'Lulus'}]},
+  { id:'CL028A020', name:'Noraniza A/P Bah Din', ic:'081110-06-0678', cefr:'A1', cefrSkills:{reading:'A2',writing:'Pre A1',speaking:'A1',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'E',label:'Lulus'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'G',label:'Gagal'},{code:'1249',sub:'Sejarah',grade:'E',label:'Lulus'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'D',label:'Lulus Atas'},{code:'7203',sub:'Pemprosesan Makanan',grade:'D',label:'Lulus Atas'}]},
+  { id:'CL028A021', name:'Nurafika A/P Razuan', ic:'080702-06-0570', cefr:'A1', cefrSkills:{reading:'A2',writing:'A1',speaking:'A1',listening:'A1'}, sijil:'PERNYATAAN', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'E',label:'Lulus'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'G',label:'Gagal'},{code:'1249',sub:'Sejarah',grade:'G',label:'Gagal'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'G',label:'Gagal'},{code:'7203',sub:'Pemprosesan Makanan',grade:'C+',label:'Kepujian Atas'}]},
+  { id:'CL028A022', name:'Safiza A/P Sharin', ic:'080104-06-0546', cefr:'A1', cefrSkills:{reading:'A1',writing:'Pre A1',speaking:'A1',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'G',label:'Gagal'},{code:'1249',sub:'Sejarah',grade:'E',label:'Lulus'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'G',label:'Gagal'},{code:'7203',sub:'Pemprosesan Makanan',grade:'C+',label:'Kepujian Atas'}]},
+  { id:'CL028A023', name:'Sahara A/P Bah Seret', ic:'080717-06-0442', cefr:'A1', cefrSkills:{reading:'A1',writing:'A1',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'G',label:'Gagal'},{code:'1249',sub:'Sejarah',grade:'E',label:'Lulus'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'E',label:'Lulus'},{code:'7203',sub:'Pemprosesan Makanan',grade:'B',label:'Kepujian Tinggi'}]},
+  { id:'CL028A024', name:'Sanorashema A/P Sari', ic:'080820-10-1994', cefr:'A1', cefrSkills:{reading:'A2',writing:'A1',speaking:'A2',listening:'Pre A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'C',label:'Kepujian'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'C+',label:'Kepujian Atas'},{code:'1249',sub:'Sejarah',grade:'C',label:'Kepujian'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'D',label:'Lulus Atas'},{code:'7203',sub:'Pemprosesan Makanan',grade:'B+',label:'Kepujian Tertinggi'}]},
+  { id:'CL028A025', name:'Suraidah A/P Bah Harun', ic:'080608-06-0232', cefr:'A1', cefrSkills:{reading:'A2',writing:'A1',speaking:'A1',listening:'Pre A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'E',label:'Lulus'},{code:'1249',sub:'Sejarah',grade:'E',label:'Lulus'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'E',label:'Lulus'},{code:'7203',sub:'Pemprosesan Makanan',grade:'C',label:'Kepujian'}]},
+  { id:'CL028A026', name:'Umie A/P Rasif', ic:'081217-06-0248', cefr:'A1', cefrSkills:{reading:'A2',writing:'A1',speaking:'A1',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'C',label:'Kepujian'},{code:'1249',sub:'Sejarah',grade:'D',label:'Lulus Atas'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'E',label:'Lulus'},{code:'7203',sub:'Pemprosesan Makanan',grade:'B',label:'Kepujian Tinggi'}]},
+  { id:'CL028A027', name:'Ardiffin A/L Arbee', ic:'081231-06-0295', cefr:'A1', cefrSkills:{reading:'A1',writing:'Pre A1',speaking:'A1',listening:'A1'}, sijil:'TIADA', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'G',label:'Gagal'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'G',label:'Gagal'},{code:'1249',sub:'Sejarah',grade:'G',label:'Gagal'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'G',label:'Gagal'}]},
+  { id:'CL028A028', name:'Bah Aikhal A/L Sanwin', ic:'081018-14-0245', cefr:'A1', cefrSkills:{reading:'A2',writing:'Pre A1',speaking:'A1',listening:'A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'G',label:'Gagal'},{code:'1249',sub:'Sejarah',grade:'E',label:'Lulus'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'G',label:'Gagal'}]},
+  { id:'CL028A029', name:'Daniel Joseph A/L Jomee', ic:'080618-02-1093', cefr:'TH', cefrSkills:{reading:'TH',writing:'TH',speaking:'TH',listening:'TH'}, sijil:'TIADA', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'T',label:'Tidak Hadir'},{code:'1119',sub:'Bahasa Inggeris',grade:'T',label:'Tidak Hadir'},{code:'1225',sub:'Pendidikan Moral',grade:'T',label:'Tidak Hadir'},{code:'1249',sub:'Sejarah',grade:'T',label:'Tidak Hadir'},{code:'1449',sub:'Matematik',grade:'T',label:'Tidak Hadir'},{code:'1511',sub:'Sains',grade:'T',label:'Tidak Hadir'}]},
+  { id:'CL028A030', name:'Eillo Reezky A/L Mohd Nadzri', ic:'080703-02-0845', cefr:'A1', cefrSkills:{reading:'A1',writing:'A1',speaking:'A1',listening:'A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'E',label:'Lulus'},{code:'1249',sub:'Sejarah',grade:'D',label:'Lulus Atas'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'D',label:'Lulus Atas'}]},
+  { id:'CL028A031', name:'Madi A/L Sheriff', ic:'080816-06-0659', cefr:'A1', cefrSkills:{reading:'A2',writing:'Pre A1',speaking:'A1',listening:'A1'}, sijil:'TIADA', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'G',label:'Gagal'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'G',label:'Gagal'},{code:'1249',sub:'Sejarah',grade:'G',label:'Gagal'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'G',label:'Gagal'}]},
+  { id:'CL028A032', name:'Maswindey A/L Jalil', ic:'081009-08-1319', cefr:'A1', cefrSkills:{reading:'A2',writing:'Pre A1',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'C',label:'Kepujian'},{code:'1249',sub:'Sejarah',grade:'E',label:'Lulus'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'E',label:'Lulus'}]},
+  { id:'CL028A033', name:'Mazriani binti Maznan', ic:'081018-08-1062', cefr:'TH', cefrSkills:{reading:'TH',writing:'TH',speaking:'TH',listening:'TH'}, sijil:'TIADA', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'T',label:'Tidak Hadir'},{code:'1119',sub:'Bahasa Inggeris',grade:'T',label:'Tidak Hadir'},{code:'1225',sub:'Pendidikan Moral',grade:'T',label:'Tidak Hadir'},{code:'1249',sub:'Sejarah',grade:'T',label:'Tidak Hadir'},{code:'1449',sub:'Matematik',grade:'T',label:'Tidak Hadir'},{code:'1511',sub:'Sains',grade:'T',label:'Tidak Hadir'}]},
+  { id:'CL028A034', name:'Mohamad Hasrol bin Hashim', ic:'080902-06-0241', cefr:'TH', cefrSkills:{reading:'TH',writing:'TH',speaking:'TH',listening:'TH'}, sijil:'TIADA', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'T',label:'Tidak Hadir'},{code:'1119',sub:'Bahasa Inggeris',grade:'T',label:'Tidak Hadir'},{code:'1223',sub:'Pendidikan Islam',grade:'T',label:'Tidak Hadir'},{code:'1249',sub:'Sejarah',grade:'T',label:'Tidak Hadir'},{code:'1449',sub:'Matematik',grade:'T',label:'Tidak Hadir'},{code:'1511',sub:'Sains',grade:'T',label:'Tidak Hadir'}]},
+  { id:'CL028A035', name:'Nur Amylia Shahiera binti Din', ic:'081016-06-0460', cefr:'TH', cefrSkills:{reading:'TH',writing:'TH',speaking:'TH',listening:'TH'}, sijil:'TIADA', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'T',label:'Tidak Hadir'},{code:'1119',sub:'Bahasa Inggeris',grade:'T',label:'Tidak Hadir'},{code:'1223',sub:'Pendidikan Islam',grade:'T',label:'Tidak Hadir'},{code:'1249',sub:'Sejarah',grade:'T',label:'Tidak Hadir'},{code:'1449',sub:'Matematik',grade:'T',label:'Tidak Hadir'},{code:'1511',sub:'Sains',grade:'T',label:'Tidak Hadir'}]},
+  { id:'CL028A036', name:'Raman A/L Bah Pos', ic:'080420-06-0281', cefr:'A1', cefrSkills:{reading:'A2',writing:'Pre A1',speaking:'A1',listening:'A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'E',label:'Lulus'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'G',label:'Gagal'},{code:'1249',sub:'Sejarah',grade:'E',label:'Lulus'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'G',label:'Gagal'}]},
+  { id:'CL028A037', name:'Shazuan A/L Seh', ic:'080718-10-0477', cefr:'A2', cefrSkills:{reading:'A2',writing:'A1',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'E',label:'Lulus'},{code:'1225',sub:'Pendidikan Moral',grade:'C',label:'Kepujian'},{code:'1249',sub:'Sejarah',grade:'E',label:'Lulus'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'E',label:'Lulus'}]},
+  { id:'CL028A038', name:'Siti Aisyah binti Spawi', ic:'081011-06-0074', cefr:'A1', cefrSkills:{reading:'A2',writing:'A1',speaking:'A1',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1223',sub:'Pendidikan Islam',grade:'C+',label:'Kepujian Atas'},{code:'1249',sub:'Sejarah',grade:'E',label:'Lulus'},{code:'1449',sub:'Matematik',grade:'E',label:'Lulus'},{code:'1511',sub:'Sains',grade:'D',label:'Lulus Atas'}]},
+  { id:'CL028A039', name:'Syafira Afika A/P Sapie', ic:'080205-10-0498', cefr:'A2', cefrSkills:{reading:'A2',writing:'A2',speaking:'B1',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'B',label:'Kepujian Tinggi'},{code:'1119',sub:'Bahasa Inggeris',grade:'D',label:'Lulus Atas'},{code:'1225',sub:'Pendidikan Moral',grade:'C+',label:'Kepujian Atas'},{code:'1249',sub:'Sejarah',grade:'D',label:'Lulus Atas'},{code:'1449',sub:'Matematik',grade:'E',label:'Lulus'},{code:'1511',sub:'Sains',grade:'C',label:'Kepujian'}]},
+  { id:'CL028A040', name:'Yayed Almizan A/L Kamaruzaman', ic:'080720-06-0443', cefr:'A2', cefrSkills:{reading:'A2',writing:'A2',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'E',label:'Lulus'},{code:'1225',sub:'Pendidikan Moral',grade:'C+',label:'Kepujian Atas'},{code:'1249',sub:'Sejarah',grade:'D',label:'Lulus Atas'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'E',label:'Lulus'}]},
+  { id:'CL028A041', name:'Zabry A/L Rahim', ic:'080205-06-0473', cefr:'TH', cefrSkills:{reading:'TH',writing:'TH',speaking:'TH',listening:'TH'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'E',label:'Lulus'},{code:'1119',sub:'Bahasa Inggeris',grade:'T',label:'Tidak Hadir'},{code:'1225',sub:'Pendidikan Moral',grade:'G',label:'Gagal'},{code:'1249',sub:'Sejarah',grade:'E',label:'Lulus'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'G',label:'Gagal'}]},
+  { id:'CL028A042', name:'Badrizi A/L Baharum', ic:'081201-06-0331', cefr:'A1', cefrSkills:{reading:'A2',writing:'Pre A1',speaking:'A1',listening:'A1'}, sijil:'PERNYATAAN', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'E',label:'Lulus'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'G',label:'Gagal'},{code:'1249',sub:'Sejarah',grade:'G',label:'Gagal'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'G',label:'Gagal'},{code:'2611',sub:'Pend. Seni Visual',grade:'C',label:'Kepujian'}]},
+  { id:'CL028A043', name:'Bah Jerry A/L Along', ic:'081128-06-0609', cefr:'A2', cefrSkills:{reading:'A2',writing:'A1',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'C+',label:'Kepujian Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'E',label:'Lulus'},{code:'1225',sub:'Pendidikan Moral',grade:'C',label:'Kepujian'},{code:'1249',sub:'Sejarah',grade:'D',label:'Lulus Atas'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'C',label:'Kepujian'},{code:'2611',sub:'Pend. Seni Visual',grade:'B',label:'Kepujian Tinggi'}]},
+  { id:'CL028A044', name:'Marzawina binti Ana', ic:'080925-08-0552', cefr:'A2', cefrSkills:{reading:'A2',writing:'A2',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'E',label:'Lulus'},{code:'1223',sub:'Pendidikan Islam',grade:'B',label:'Kepujian Tinggi'},{code:'1249',sub:'Sejarah',grade:'D',label:'Lulus Atas'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'D',label:'Lulus Atas'},{code:'2611',sub:'Pend. Seni Visual',grade:'B+',label:'Kepujian Tertinggi'}]},
+  { id:'CL028A045', name:'Mudah A/L Bah Saem', ic:'080708-06-0301', cefr:'A2', cefrSkills:{reading:'A2',writing:'A1',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'C',label:'Kepujian'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'E',label:'Lulus'},{code:'1249',sub:'Sejarah',grade:'D',label:'Lulus Atas'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'E',label:'Lulus'},{code:'2611',sub:'Pend. Seni Visual',grade:'C+',label:'Kepujian Atas'}]},
+  { id:'CL028A046', name:'Nordiana A/P Bah Him', ic:'081121-06-0534', cefr:'A2', cefrSkills:{reading:'A2',writing:'A2',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'B',label:'Kepujian Tinggi'},{code:'1119',sub:'Bahasa Inggeris',grade:'D',label:'Lulus Atas'},{code:'1225',sub:'Pendidikan Moral',grade:'B+',label:'Kepujian Tertinggi'},{code:'1249',sub:'Sejarah',grade:'B+',label:'Kepujian Tertinggi'},{code:'1449',sub:'Matematik',grade:'C+',label:'Kepujian Atas'},{code:'1511',sub:'Sains',grade:'A',label:'Cemerlang Tinggi'},{code:'2611',sub:'Pend. Seni Visual',grade:'A-',label:'Cemerlang'}]},
+  { id:'CL028A047', name:'Nur Alya Nadhirah binti Mohamad Hafiz', ic:'081109-14-0144', cefr:'A2', cefrSkills:{reading:'A2',writing:'A2',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'C',label:'Kepujian'},{code:'1119',sub:'Bahasa Inggeris',grade:'E',label:'Lulus'},{code:'1223',sub:'Pendidikan Islam',grade:'D',label:'Lulus Atas'},{code:'1249',sub:'Sejarah',grade:'D',label:'Lulus Atas'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'D',label:'Lulus Atas'},{code:'2611',sub:'Pend. Seni Visual',grade:'T',label:'Tidak Hadir'}]},
+];
+
+const SUBJECTS = [
+  {code:'1103', name:'Bahasa Melayu', icon:'📖', color:'#3266ad', gpmp25:6.49, gpmp24:5.67, pass25:95.35, pass24:100, cemerlang:0, kepujian:37.21, lulus:58.14},
+  {code:'1119', name:'Bahasa Inggeris', icon:'🇬🇧', color:'#e05c2a', gpmp25:8.43, gpmp24:8.41, pass25:45.24, pass24:33.33, cemerlang:0, kepujian:2.38, lulus:42.86},
+  {code:'1225', name:'Pendidikan Moral', icon:'⚖️', color:'#7c3aed', gpmp25:6.63, gpmp24:5.04, pass25:70, pass24:88.46, cemerlang:2.5, kepujian:47.5, lulus:20},
+  {code:'1249', name:'Sejarah', icon:'🏛️', color:'#0891b2', gpmp25:7.09, gpmp24:5.74, pass25:86.05, pass24:92.59, cemerlang:2.33, kepujian:20.93, lulus:62.79},
+  {code:'1449', name:'Matematik', icon:'🔢', color:'#dc2626', gpmp25:8.56, gpmp24:8.07, pass25:20.93, pass24:48.15, cemerlang:2.33, kepujian:2.33, lulus:16.28},
+  {code:'1511', name:'Sains', icon:'🔬', color:'#059669', gpmp25:7.12, gpmp24:5.81, pass25:74.42, pass24:92.59, cemerlang:4.65, kepujian:18.6, lulus:51.16},
+  {code:'2611', name:'Pend. Seni Visual', icon:'🎨', color:'#d97706', gpmp25:3.83, gpmp24:5.5, pass25:100, pass24:100, cemerlang:16.67, kepujian:83.33, lulus:0},
+  {code:'7203', name:'Pemprosesan Makanan', icon:'🍽️', color:'#be185d', gpmp25:3.50, gpmp24:2.63, pass25:100, pass24:100, cemerlang:38.46, kepujian:50, lulus:11.54},
+];
+
+const GRADE_COLORS = {'A+':'#059669','A':'#059669','A-':'#10b981','B+':'#0284c7','B':'#0ea5e9','C+':'#7c3aed','C':'#9333ea','D':'#d97706','E':'#f59e0b','G':'#dc2626','T':'#9ca3af'};
+
+function gradeClass(g){
+  if(g==='A+' || g==='A' || g==='A-') return 'grade-A';
+  if(g==='B+' || g==='B') return 'grade-Bp';
+  if(g==='C+' || g==='C') return 'grade-Cp';
+  if(g==='D') return 'grade-D';
+  return 'grade-G';
+}
+
+function getInitials(name){
+  return name.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
+}
+
+const avatarColors = ['#dbeafe','#fce7f3','#d1fae5','#fef3c7','#ede9fe','#fee2e2','#e0f2fe','#fdf2f8'];
+const textColors = ['#1e40af','#9d174d','#065f46','#92400e','#5b21b6','#991b1b','#075985','#701a75'];
+
+function getAvatarStyle(idx){
+  const i = idx % avatarColors.length;
+  return `background: ${avatarColors[i]}; color: ${textColors[i]};`;
+}
+
+function spmShowSection(id){
+  document.querySelectorAll('.spm-section').forEach(s=>s.classList.remove('spm-active'));
+  document.querySelectorAll('.spm-wrap .nav-btn').forEach(b=>b.classList.remove('spm-active'));
+  var el = document.getElementById(id);
+  if (el) el.classList.add('spm-active');
+  if (event && event.target) event.target.classList.add('spm-active');
+}
+
+let subjectChartInstance = null;
+
+function buildSubjectList(){
+  const el = document.getElementById('subjectList');
+  el.innerHTML = SUBJECTS.map((s,i)=>`
+    <div class="subject-row" onclick="showSubjectDetail(${i})">
+      <div class="subject-icon" style="background:${s.color}22;">${s.icon}</div>
+      <div class="subject-info">
+        <div class="subject-name">${s.name}</div>
+        <div class="subject-pass">Pass rate: ${s.pass25.toFixed(1)}%</div>
+        <div class="progress-mini"><div class="progress-mini-fill" style="width:${s.pass25}%;background:${s.color};"></div></div>
+      </div>
+      <div class="subject-gpmp" style="color:${s.gpmp25<5?'#059669':s.gpmp25<7?'#d97706':'#dc2626'};">${s.gpmp25.toFixed(2)}</div>
+    </div>`).join('');
+}
+
+function showSubjectDetail(idx){
+  const s = SUBJECTS[idx];
+  const card = document.getElementById('subjectDetailCard');
+  card.style.display = 'block';
+  document.getElementById('subjectDetailTitle').textContent = s.name + ' — grade breakdown';
+
+  const gradeData = {};
+  SPM_STUDENTS.forEach(st=>{
+    const r = st.results.find(r=>r.code===s.code);
+    if(r && r.grade!=='T') gradeData[r.grade] = (gradeData[r.grade]||0)+1;
+  });
+
+  const labels = ['A+','A','A-','B+','B','C+','C','D','E','G'];
+  const data = labels.map(l=>gradeData[l]||0);
+  const colors = labels.map(l=>GRADE_COLORS[l]);
+
+  if(subjectChartInstance) subjectChartInstance.destroy();
+  subjectChartInstance = new Chart(document.getElementById('subjectGradeChart'),{
+    type:'bar',
+    data:{labels,datasets:[{data,backgroundColor:colors,borderRadius:6,borderSkipped:false}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{color:'#888'}},y:{beginAtZero:true,grid:{color:'rgba(128,128,128,0.1)'},ticks:{color:'#888',stepSize:1}}}}
+  });
+
+  document.getElementById('subjectStats').innerHTML = `
+    <div class="trend-row"><span class="trend-label">GPMP 2025</span><span class="trend-val">${s.gpmp25.toFixed(2)}</span></div>
+    <div class="trend-row"><span class="trend-label">GPMP 2024</span><span class="trend-val">${s.gpmp24.toFixed(2)}</span></div>
+    <div class="trend-row"><span class="trend-label">Pass rate</span><span class="trend-val">${s.pass25.toFixed(1)}%</span></div>
+    <div class="trend-row"><span class="trend-label">Cemerlang (A)</span><span class="trend-val">${s.cemerlang.toFixed(1)}%</span></div>
+    <div class="trend-row"><span class="trend-label">Kepujian (B-C)</span><span class="trend-val">${s.kepujian.toFixed(1)}%</span></div>`;
+
+  card.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function buildStudentGrid(list){
+  const el = document.getElementById('studentGrid');
+  el.innerHTML = list.map((s,i)=>{
+    const globalIdx = SPM_STUDENTS.indexOf(s);
+    return `<div class="student-card" onclick="showStudentDetail(${globalIdx})">
+      <div class="student-card-header">
+        <div class="avatar" style="${getAvatarStyle(globalIdx)}">${getInitials(s.name)}</div>
+        <div style="flex:1;min-width:0;">
+          <div class="student-name">${s.name}</div>
+          <div class="student-id">${s.id} · ${s.gender}</div>
+        </div>
+        ${s.cefr!=='TH'?`<div class="cefr-badge cefr-${s.cefr}">${s.cefr}</div>`:'<div style="font-size:11px;color:var(--text2);">TH</div>'}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function spmFilterStudents(q){
+  const filtered = SPM_STUDENTS.filter(s=>s.name.toLowerCase().includes(q.toLowerCase())||s.id.includes(q));
+  buildStudentGrid(filtered);
+}
+
+function showStudentDetail(idx){
+  const s = SPM_STUDENTS[idx];
+  document.getElementById('studentListView').style.display = 'none';
+  document.getElementById('studentDetailView').classList.add('visible');
+
+  const sijilBg = s.sijil==='SIJIL'?'#d1fae5':s.sijil==='PERNYATAAN'?'#fef3c7':'#fee2e2';
+  const sijilColor = s.sijil==='SIJIL'?'#065f46':s.sijil==='PERNYATAAN'?'#92400e':'#991b1b';
+
+  const resultsHTML = s.results.map(r=>`
+    <div class="result-row">
+      <div class="result-subject">${r.sub}</div>
+      <div class="result-grade ${gradeClass(r.grade)}">${r.grade}</div>
+      <div class="result-label">${r.label}</div>
+    </div>`).join('');
+
+  let cefrSection = '';
+  if(s.cefr !== 'TH'){
+    cefrSection = `<div class="card" style="margin-top:1rem;">
+      <div class="card-title">CEFR English — ${s.cefr}</div>
+      <div class="cefr-skills">
+        <div class="skill-card"><div class="skill-name">Reading & Use</div><div class="skill-level">${s.cefrSkills.reading}</div></div>
+        <div class="skill-card"><div class="skill-name">Writing</div><div class="skill-level">${s.cefrSkills.writing}</div></div>
+        <div class="skill-card"><div class="skill-name">Speaking</div><div class="skill-level">${s.cefrSkills.speaking}</div></div>
+        <div class="skill-card"><div class="skill-name">Listening</div><div class="skill-level">${s.cefrSkills.listening}</div></div>
+      </div>
+    </div>`;
+  }
+
+  document.getElementById('studentDetailContent').innerHTML = `
+    <div class="detail-header">
+      <div class="detail-avatar" style="${getAvatarStyle(idx)}">${getInitials(s.name)}</div>
+      <div>
+        <div class="detail-name">${s.name}</div>
+        <div class="detail-meta">${s.ic} · ${s.id}</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap;">
+      <span style="background:${sijilBg};color:${sijilColor};font-size:12px;font-weight:600;padding:4px 12px;border-radius:8px;">${s.sijil}</span>
+      <span style="background:var(--surface2);color:var(--text2);font-size:12px;padding:4px 12px;border-radius:8px;">${s.gender==='L'?'Lelaki':'Perempuan'}</span>
+    </div>
+    <div class="card">
+      <div class="card-title">SPM 2025 results</div>
+      ${resultsHTML}
+    </div>
+    ${cefrSection}
+  `;
+}
+
+function backToList(){
+  document.getElementById('studentListView').style.display = 'block';
+  document.getElementById('studentDetailView').classList.remove('visible');
+}
+
+function buildCefrA2List(){
+  const el = document.getElementById('cefrA2List');
+  const b1speaking = SPM_STUDENTS.filter(s=>s.cefrSkills.speaking==='B1' && s.cefr==='A2');
+  el.innerHTML = b1speaking.map(s=>`
+    <div class="result-row">
+      <div class="result-subject" style="font-size:13px;">${s.name}</div>
+      <div style="font-size:11px;color:var(--text2);">Speaking: B1</div>
+    </div>`).join('') || '<div style="font-size:13px;color:var(--text2);padding:8px 0;">No records</div>';
+}
+
+function buildTrendList(){
+  const el = document.getElementById('trendList');
+  el.innerHTML = SUBJECTS.map(s=>`
+    <div class="trend-row">
+      <div class="trend-label">${s.icon} ${s.name}</div>
+      <div>
+        <div class="trend-val">${s.pass25.toFixed(1)}%</div>
+        <div class="trend-change ${s.pass25>s.pass24?'down':'up'}">${s.pass25>s.pass24?'↓':'↑'} vs ${s.pass24.toFixed(1)}%</div>
+      </div>
+    </div>`).join('');
+}
+
+function initCharts(){
+  const isDark = matchMedia('(prefers-color-scheme: dark)').matches;
+  const textColor = isDark ? '#ccc' : '#666';
+  const gridColor = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)';
+
+  new Chart(document.getElementById('gradePie'),{
+    type:'doughnut',
+    data:{
+      labels:['Cemerlang (A+/A/A-)','Kepujian Tinggi (B+/B)','Kepujian (C+/C)','Lulus (D/E)','Gagal (G)'],
+      datasets:[{data:[2,7,16,18,23],backgroundColor:['#059669','#0284c7','#7c3aed','#d97706','#dc2626'],hoverOffset:6,borderWidth:2,borderColor: isDark?'#1a1a1a':'#fff'}]
+    },
+    options:{responsive:true,maintainAspectRatio:false,cutout:'65%',plugins:{legend:{display:false}}}
+  });
+  const legend = document.getElementById('gradePieLegend');
+  const pItems = [['#059669','Cemerlang 2'],['#0284c7','Kep. Tinggi 7'],['#7c3aed','Kepujian 16'],['#d97706','Lulus 18'],['#dc2626','Gagal 23']];
+  legend.innerHTML = pItems.map(([c,l])=>`<span class="pie-leg-item"><span class="pie-dot" style="background:${c}"></span>${l}</span>`).join('');
+
+  new Chart(document.getElementById('achieveBar'),{
+    type:'bar',
+    data:{
+      labels:['Cemerlang\nTertinggi (A+)','Cemerlang\n(min A-)','Kepujian\nTinggi (min B)','Kepujian\n(min C)'],
+      datasets:[{data:[0,2,9,32],backgroundColor:['#059669','#10b981','#0284c7','#7c3aed'],borderRadius:8,borderSkipped:false}]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{color:textColor,font:{size:10}}},y:{beginAtZero:true,grid:{color:gridColor},ticks:{color:textColor,stepSize:5}}}}
+  });
+
+  new Chart(document.getElementById('cefrBar'),{
+    type:'bar',
+    data:{
+      labels:['B1','A2','A1','Not assessed'],
+      datasets:[{data:[1,18,19,5],backgroundColor:['#059669','#0284c7','#d97706','#9ca3af'],borderRadius:8,borderSkipped:false}]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{color:textColor}},y:{beginAtZero:true,grid:{color:gridColor},ticks:{color:textColor,stepSize:5}}}}
+  });
+
+  new Chart(document.getElementById('cefrDonut'),{
+    type:'doughnut',
+    data:{
+      labels:['B1 (2.4%)','A2 (42.9%)','A1 (45.2%)','TH/N (9.5%)'],
+      datasets:[{data:[1,18,19,4],backgroundColor:['#059669','#0284c7','#d97706','#9ca3af'],borderWidth:2,borderColor: isDark?'#1a1a1a':'#fff',hoverOffset:6}]
+    },
+    options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{display:false}}}
+  });
+  const cefrLeg = document.getElementById('cefrDonutLegend');
+  cefrLeg.innerHTML = [['#059669','B1 — 1 (2.4%)'],['#0284c7','A2 — 18 (42.9%)'],['#d97706','A1 — 19 (45.2%)'],['#9ca3af','TH/N — 4']].map(([c,l])=>`<span class="pie-leg-item"><span class="pie-dot" style="background:${c}"></span>${l}</span>`).join('');
+
+  new Chart(document.getElementById('cefrSkills'),{
+    type:'bar',
+    data:{
+      labels:['Reading','Writing','Speaking','Listening'],
+      datasets:[
+        {label:'B1',data:[1,1,5,1],backgroundColor:'#059669',borderRadius:4,borderSkipped:false},
+        {label:'A2',data:[24,13,15,0],backgroundColor:'#0284c7',borderRadius:4,borderSkipped:false},
+        {label:'A1',data:[3,8,15,30],backgroundColor:'#d97706',borderRadius:4,borderSkipped:false},
+        {label:'Pre A1',data:[0,10,0,4],backgroundColor:'#ef4444',borderRadius:4,borderSkipped:false},
+      ]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{stacked:true,grid:{display:false},ticks:{color:textColor}},y:{stacked:true,grid:{color:gridColor},ticks:{color:textColor}}}}
+  });
+
+  new Chart(document.getElementById('gpsTrend'),{
+    type:'bar',
+    data:{
+      labels:['2024 (27 students)','2025 (43 students)'],
+      datasets:[{data:[6.08,6.94],backgroundColor:['#93c5fd','#1d4ed8'],borderRadius:10,borderSkipped:false}]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{color:textColor}},y:{beginAtZero:false,min:5,max:8,grid:{color:gridColor},ticks:{color:textColor}}}}
+  });
+
+  new Chart(document.getElementById('subjectTrend'),{
+    type:'bar',
+    data:{
+      labels:SUBJECTS.map(s=>s.name.replace('Pendidikan ','Pend. ').replace('Pemprosesan Makanan','Makanan')),
+      datasets:[
+        {label:'2024',data:SUBJECTS.map(s=>s.gpmp24),backgroundColor:'#93c5fd',borderRadius:4,borderSkipped:false},
+        {label:'2025',data:SUBJECTS.map(s=>s.gpmp25),backgroundColor:'#1d4ed8',borderRadius:4,borderSkipped:false},
+      ]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{color:textColor,font:{size:10},maxRotation:45}},y:{beginAtZero:true,max:10,grid:{color:gridColor},ticks:{color:textColor}}},indexAxis:'x'}
+  });
+}
+
+buildSubjectList();
+buildStudentGrid(SPM_STUDENTS);
+buildCefrA2List();
+buildTrendList();
+initCharts();
+
+    // Auto-init
+    spmShowSection('overview');
+    setTimeout(() => initCharts(), 100);
+  })();
+}
+
+</script>
+<script>
+
+// ===== SPM DASHBOARD =====
+let spmInitialized = false;
+function initSPMDashboard() {
+  if (spmInitialized) return;
+  spmInitialized = true;
+  (function() {
+
+const SPM_STUDENTS = [
+  { id:'CL028A001', name:'Adzril Yussha bin Kamarud-Din', ic:'081227-10-1605', cefr:'B1', cefrSkills:{reading:'B1',writing:'B1',speaking:'A2',listening:'B1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'B+',label:'Kepujian Tertinggi'},{code:'1119',sub:'Bahasa Inggeris',grade:'C',label:'Kepujian'},{code:'1225',sub:'Pendidikan Moral',grade:'A-',label:'Cemerlang'},{code:'1249',sub:'Sejarah',grade:'B+',label:'Kepujian Tertinggi'},{code:'1449',sub:'Matematik',grade:'A',label:'Cemerlang Tinggi'},{code:'1511',sub:'Sains',grade:'A',label:'Cemerlang Tinggi'},{code:'7203',sub:'Pemprosesan Makanan',grade:'A+',label:'Cemerlang Tertinggi'}]},
+  { id:'CL028A002', name:'Aemiey Naidia A/P Ami', ic:'080507-06-0452', cefr:'A2', cefrSkills:{reading:'A2',writing:'A2',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'C+',label:'Kepujian Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'E',label:'Lulus'},{code:'1225',sub:'Pendidikan Moral',grade:'B+',label:'Kepujian Tertinggi'},{code:'1249',sub:'Sejarah',grade:'C+',label:'Kepujian Atas'},{code:'1449',sub:'Matematik',grade:'E',label:'Lulus'},{code:'1511',sub:'Sains',grade:'B',label:'Kepujian Tinggi'},{code:'7203',sub:'Pemprosesan Makanan',grade:'A',label:'Cemerlang Tinggi'}]},
+  { id:'CL028A003', name:'Airril A/L Ababil', ic:'080119-06-0573', cefr:'A1', cefrSkills:{reading:'A2',writing:'Pre A1',speaking:'A2',listening:'Pre A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'E',label:'Lulus'},{code:'1249',sub:'Sejarah',grade:'E',label:'Lulus'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'E',label:'Lulus'},{code:'7203',sub:'Pemprosesan Makanan',grade:'B+',label:'Kepujian Tertinggi'}]},
+  { id:'CL028A004', name:'Ana A/P Sribani', ic:'080805-06-0434', cefr:'A2', cefrSkills:{reading:'A2',writing:'A2',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'C',label:'Kepujian'},{code:'1119',sub:'Bahasa Inggeris',grade:'E',label:'Lulus'},{code:'1225',sub:'Pendidikan Moral',grade:'C+',label:'Kepujian Atas'},{code:'1249',sub:'Sejarah',grade:'C',label:'Kepujian'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'D',label:'Lulus Atas'},{code:'7203',sub:'Pemprosesan Makanan',grade:'A-',label:'Cemerlang'}]},
+  { id:'CL028A005', name:'Azffudy A/L Adenan', ic:'080709-06-0629', cefr:'A1', cefrSkills:{reading:'A2',writing:'A1',speaking:'A1',listening:'Pre A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'B',label:'Kepujian Tinggi'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'B',label:'Kepujian Tinggi'},{code:'1249',sub:'Sejarah',grade:'A-',label:'Cemerlang'},{code:'1449',sub:'Matematik',grade:'E',label:'Lulus'},{code:'1511',sub:'Sains',grade:'C+',label:'Kepujian Atas'},{code:'7203',sub:'Pemprosesan Makanan',grade:'A-',label:'Cemerlang'}]},
+  { id:'CL028A006', name:'Bah Elvis A/L Mahadir', ic:'081201-06-0593', cefr:'A1', cefrSkills:{reading:'A2',writing:'A1',speaking:'A1',listening:'A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'E',label:'Lulus'},{code:'1225',sub:'Pendidikan Moral',grade:'D',label:'Lulus Atas'},{code:'1249',sub:'Sejarah',grade:'D',label:'Lulus Atas'},{code:'1449',sub:'Matematik',grade:'E',label:'Lulus'},{code:'1511',sub:'Sains',grade:'D',label:'Lulus Atas'},{code:'7203',sub:'Pemprosesan Makanan',grade:'C',label:'Kepujian'}]},
+  { id:'CL028A007', name:'Bah Enos A/L Azhar', ic:'080421-06-0515', cefr:'A2', cefrSkills:{reading:'A2',writing:'A1',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'B',label:'Kepujian Tinggi'},{code:'1119',sub:'Bahasa Inggeris',grade:'E',label:'Lulus'},{code:'1225',sub:'Pendidikan Moral',grade:'C+',label:'Kepujian Atas'},{code:'1249',sub:'Sejarah',grade:'C',label:'Kepujian'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'C+',label:'Kepujian Atas'},{code:'7203',sub:'Pemprosesan Makanan',grade:'A-',label:'Cemerlang'}]},
+  { id:'CL028A008', name:'Diana A/P Osman', ic:'080618-06-0498', cefr:'A2', cefrSkills:{reading:'A2',writing:'A1',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'D',label:'Lulus Atas'},{code:'1249',sub:'Sejarah',grade:'E',label:'Lulus'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'E',label:'Lulus'},{code:'7203',sub:'Pemprosesan Makanan',grade:'A-',label:'Cemerlang'}]},
+  { id:'CL028A009', name:'Herlizanadia A/P Sakree', ic:'080712-06-0566', cefr:'A2', cefrSkills:{reading:'A2',writing:'A2',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'C',label:'Kepujian'},{code:'1119',sub:'Bahasa Inggeris',grade:'E',label:'Lulus'},{code:'1225',sub:'Pendidikan Moral',grade:'C',label:'Kepujian'},{code:'1249',sub:'Sejarah',grade:'D',label:'Lulus Atas'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'D',label:'Lulus Atas'},{code:'7203',sub:'Pemprosesan Makanan',grade:'A',label:'Cemerlang Tinggi'}]},
+  { id:'CL028A010', name:'Johatista A/L Johaini', ic:'080513-06-0539', cefr:'A2', cefrSkills:{reading:'A2',writing:'A1',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'E',label:'Lulus'},{code:'1225',sub:'Pendidikan Moral',grade:'C',label:'Kepujian'},{code:'1249',sub:'Sejarah',grade:'D',label:'Lulus Atas'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'D',label:'Lulus Atas'},{code:'7203',sub:'Pemprosesan Makanan',grade:'B+',label:'Kepujian Tertinggi'}]},
+  { id:'CL028A011', name:'Khairul Asmie A/L Bah Rumie', ic:'080229-06-0195', cefr:'A2', cefrSkills:{reading:'A2',writing:'A2',speaking:'B1',listening:'A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'C',label:'Kepujian'},{code:'1119',sub:'Bahasa Inggeris',grade:'E',label:'Lulus'},{code:'1225',sub:'Pendidikan Moral',grade:'C+',label:'Kepujian Atas'},{code:'1249',sub:'Sejarah',grade:'C+',label:'Kepujian Atas'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'D',label:'Lulus Atas'},{code:'7203',sub:'Pemprosesan Makanan',grade:'A',label:'Cemerlang Tinggi'}]},
+  { id:'CL028A012', name:'Riezuan A/L Bah Darus', ic:'080923-06-0443', cefr:'A2', cefrSkills:{reading:'A2',writing:'A2',speaking:'A2',listening:'Pre A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'C+',label:'Kepujian Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'E',label:'Lulus'},{code:'1225',sub:'Pendidikan Moral',grade:'C',label:'Kepujian'},{code:'1249',sub:'Sejarah',grade:'D',label:'Lulus Atas'},{code:'1449',sub:'Matematik',grade:'E',label:'Lulus'},{code:'1511',sub:'Sains',grade:'D',label:'Lulus Atas'},{code:'7203',sub:'Pemprosesan Makanan',grade:'A',label:'Cemerlang Tinggi'}]},
+  { id:'CL028A013', name:'Rosafika A/P Rossy', ic:'080826-06-0900', cefr:'A2', cefrSkills:{reading:'A2',writing:'A1',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'D',label:'Lulus Atas'},{code:'1249',sub:'Sejarah',grade:'E',label:'Lulus'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'D',label:'Lulus Atas'},{code:'7203',sub:'Pemprosesan Makanan',grade:'C+',label:'Kepujian Atas'}]},
+  { id:'CL028A014', name:'Roshaliza Nazreen A/P Rosli', ic:'081214-06-0568', cefr:'A2', cefrSkills:{reading:'A2',writing:'A2',speaking:'B1',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'E',label:'Lulus'},{code:'1225',sub:'Pendidikan Moral',grade:'C',label:'Kepujian'},{code:'1249',sub:'Sejarah',grade:'E',label:'Lulus'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'C',label:'Kepujian'},{code:'7203',sub:'Pemprosesan Makanan',grade:'B',label:'Kepujian Tinggi'}]},
+  { id:'CL028A015', name:'Sapuan A/L Azuan', ic:'080524-06-0585', cefr:'A2', cefrSkills:{reading:'A2',writing:'A2',speaking:'B1',listening:'A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'B',label:'Kepujian Tinggi'},{code:'1119',sub:'Bahasa Inggeris',grade:'D',label:'Lulus Atas'},{code:'1225',sub:'Pendidikan Moral',grade:'B+',label:'Kepujian Tertinggi'},{code:'1249',sub:'Sejarah',grade:'C+',label:'Kepujian Atas'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'C+',label:'Kepujian Atas'},{code:'2611',sub:'Pend. Seni Visual',grade:'B+',label:'Kepujian Tertinggi'},{code:'7203',sub:'Pemprosesan Makanan',grade:'B',label:'Kepujian Tinggi'}]},
+  { id:'CL028A016', name:'Tinisuliani A/P Harry', ic:'080311-06-0856', cefr:'A2', cefrSkills:{reading:'A2',writing:'A2',speaking:'B1',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'C+',label:'Kepujian Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'E',label:'Lulus'},{code:'1225',sub:'Pendidikan Moral',grade:'B+',label:'Kepujian Tertinggi'},{code:'1249',sub:'Sejarah',grade:'C',label:'Kepujian'},{code:'1449',sub:'Matematik',grade:'E',label:'Lulus'},{code:'1511',sub:'Sains',grade:'C+',label:'Kepujian Atas'},{code:'7203',sub:'Pemprosesan Makanan',grade:'A',label:'Cemerlang Tinggi'}]},
+  { id:'CL028A017', name:'Janifazliyana A/P Tani', ic:'081220-06-0054', cefr:'A1', cefrSkills:{reading:'A2',writing:'Pre A1',speaking:'A1',listening:'A1'}, sijil:'PERNYATAAN', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'E',label:'Lulus'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'G',label:'Gagal'},{code:'1249',sub:'Sejarah',grade:'G',label:'Gagal'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'G',label:'Gagal'},{code:'7203',sub:'Pemprosesan Makanan',grade:'D',label:'Lulus Atas'}]},
+  { id:'CL028A018', name:'Julia A/P Mat', ic:'081012-06-0228', cefr:'A1', cefrSkills:{reading:'A2',writing:'Pre A1',speaking:'A1',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'E',label:'Lulus'},{code:'1249',sub:'Sejarah',grade:'E',label:'Lulus'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'G',label:'Gagal'},{code:'7203',sub:'Pemprosesan Makanan',grade:'B',label:'Kepujian Tinggi'}]},
+  { id:'CL028A019', name:'Mariah A/P Rosman', ic:'081013-06-0350', cefr:'A1', cefrSkills:{reading:'A2',writing:'Pre A1',speaking:'A1',listening:'A1'}, sijil:'PERNYATAAN', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'E',label:'Lulus'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'G',label:'Gagal'},{code:'1249',sub:'Sejarah',grade:'G',label:'Gagal'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'G',label:'Gagal'},{code:'7203',sub:'Pemprosesan Makanan',grade:'E',label:'Lulus'}]},
+  { id:'CL028A020', name:'Noraniza A/P Bah Din', ic:'081110-06-0678', cefr:'A1', cefrSkills:{reading:'A2',writing:'Pre A1',speaking:'A1',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'E',label:'Lulus'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'G',label:'Gagal'},{code:'1249',sub:'Sejarah',grade:'E',label:'Lulus'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'D',label:'Lulus Atas'},{code:'7203',sub:'Pemprosesan Makanan',grade:'D',label:'Lulus Atas'}]},
+  { id:'CL028A021', name:'Nurafika A/P Razuan', ic:'080702-06-0570', cefr:'A1', cefrSkills:{reading:'A2',writing:'A1',speaking:'A1',listening:'A1'}, sijil:'PERNYATAAN', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'E',label:'Lulus'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'G',label:'Gagal'},{code:'1249',sub:'Sejarah',grade:'G',label:'Gagal'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'G',label:'Gagal'},{code:'7203',sub:'Pemprosesan Makanan',grade:'C+',label:'Kepujian Atas'}]},
+  { id:'CL028A022', name:'Safiza A/P Sharin', ic:'080104-06-0546', cefr:'A1', cefrSkills:{reading:'A1',writing:'Pre A1',speaking:'A1',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'G',label:'Gagal'},{code:'1249',sub:'Sejarah',grade:'E',label:'Lulus'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'G',label:'Gagal'},{code:'7203',sub:'Pemprosesan Makanan',grade:'C+',label:'Kepujian Atas'}]},
+  { id:'CL028A023', name:'Sahara A/P Bah Seret', ic:'080717-06-0442', cefr:'A1', cefrSkills:{reading:'A1',writing:'A1',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'G',label:'Gagal'},{code:'1249',sub:'Sejarah',grade:'E',label:'Lulus'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'E',label:'Lulus'},{code:'7203',sub:'Pemprosesan Makanan',grade:'B',label:'Kepujian Tinggi'}]},
+  { id:'CL028A024', name:'Sanorashema A/P Sari', ic:'080820-10-1994', cefr:'A1', cefrSkills:{reading:'A2',writing:'A1',speaking:'A2',listening:'Pre A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'C',label:'Kepujian'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'C+',label:'Kepujian Atas'},{code:'1249',sub:'Sejarah',grade:'C',label:'Kepujian'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'D',label:'Lulus Atas'},{code:'7203',sub:'Pemprosesan Makanan',grade:'B+',label:'Kepujian Tertinggi'}]},
+  { id:'CL028A025', name:'Suraidah A/P Bah Harun', ic:'080608-06-0232', cefr:'A1', cefrSkills:{reading:'A2',writing:'A1',speaking:'A1',listening:'Pre A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'E',label:'Lulus'},{code:'1249',sub:'Sejarah',grade:'E',label:'Lulus'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'E',label:'Lulus'},{code:'7203',sub:'Pemprosesan Makanan',grade:'C',label:'Kepujian'}]},
+  { id:'CL028A026', name:'Umie A/P Rasif', ic:'081217-06-0248', cefr:'A1', cefrSkills:{reading:'A2',writing:'A1',speaking:'A1',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'C',label:'Kepujian'},{code:'1249',sub:'Sejarah',grade:'D',label:'Lulus Atas'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'E',label:'Lulus'},{code:'7203',sub:'Pemprosesan Makanan',grade:'B',label:'Kepujian Tinggi'}]},
+  { id:'CL028A027', name:'Ardiffin A/L Arbee', ic:'081231-06-0295', cefr:'A1', cefrSkills:{reading:'A1',writing:'Pre A1',speaking:'A1',listening:'A1'}, sijil:'TIADA', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'G',label:'Gagal'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'G',label:'Gagal'},{code:'1249',sub:'Sejarah',grade:'G',label:'Gagal'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'G',label:'Gagal'}]},
+  { id:'CL028A028', name:'Bah Aikhal A/L Sanwin', ic:'081018-14-0245', cefr:'A1', cefrSkills:{reading:'A2',writing:'Pre A1',speaking:'A1',listening:'A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'G',label:'Gagal'},{code:'1249',sub:'Sejarah',grade:'E',label:'Lulus'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'G',label:'Gagal'}]},
+  { id:'CL028A029', name:'Daniel Joseph A/L Jomee', ic:'080618-02-1093', cefr:'TH', cefrSkills:{reading:'TH',writing:'TH',speaking:'TH',listening:'TH'}, sijil:'TIADA', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'T',label:'Tidak Hadir'},{code:'1119',sub:'Bahasa Inggeris',grade:'T',label:'Tidak Hadir'},{code:'1225',sub:'Pendidikan Moral',grade:'T',label:'Tidak Hadir'},{code:'1249',sub:'Sejarah',grade:'T',label:'Tidak Hadir'},{code:'1449',sub:'Matematik',grade:'T',label:'Tidak Hadir'},{code:'1511',sub:'Sains',grade:'T',label:'Tidak Hadir'}]},
+  { id:'CL028A030', name:'Eillo Reezky A/L Mohd Nadzri', ic:'080703-02-0845', cefr:'A1', cefrSkills:{reading:'A1',writing:'A1',speaking:'A1',listening:'A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'E',label:'Lulus'},{code:'1249',sub:'Sejarah',grade:'D',label:'Lulus Atas'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'D',label:'Lulus Atas'}]},
+  { id:'CL028A031', name:'Madi A/L Sheriff', ic:'080816-06-0659', cefr:'A1', cefrSkills:{reading:'A2',writing:'Pre A1',speaking:'A1',listening:'A1'}, sijil:'TIADA', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'G',label:'Gagal'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'G',label:'Gagal'},{code:'1249',sub:'Sejarah',grade:'G',label:'Gagal'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'G',label:'Gagal'}]},
+  { id:'CL028A032', name:'Maswindey A/L Jalil', ic:'081009-08-1319', cefr:'A1', cefrSkills:{reading:'A2',writing:'Pre A1',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'C',label:'Kepujian'},{code:'1249',sub:'Sejarah',grade:'E',label:'Lulus'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'E',label:'Lulus'}]},
+  { id:'CL028A033', name:'Mazriani binti Maznan', ic:'081018-08-1062', cefr:'TH', cefrSkills:{reading:'TH',writing:'TH',speaking:'TH',listening:'TH'}, sijil:'TIADA', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'T',label:'Tidak Hadir'},{code:'1119',sub:'Bahasa Inggeris',grade:'T',label:'Tidak Hadir'},{code:'1225',sub:'Pendidikan Moral',grade:'T',label:'Tidak Hadir'},{code:'1249',sub:'Sejarah',grade:'T',label:'Tidak Hadir'},{code:'1449',sub:'Matematik',grade:'T',label:'Tidak Hadir'},{code:'1511',sub:'Sains',grade:'T',label:'Tidak Hadir'}]},
+  { id:'CL028A034', name:'Mohamad Hasrol bin Hashim', ic:'080902-06-0241', cefr:'TH', cefrSkills:{reading:'TH',writing:'TH',speaking:'TH',listening:'TH'}, sijil:'TIADA', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'T',label:'Tidak Hadir'},{code:'1119',sub:'Bahasa Inggeris',grade:'T',label:'Tidak Hadir'},{code:'1223',sub:'Pendidikan Islam',grade:'T',label:'Tidak Hadir'},{code:'1249',sub:'Sejarah',grade:'T',label:'Tidak Hadir'},{code:'1449',sub:'Matematik',grade:'T',label:'Tidak Hadir'},{code:'1511',sub:'Sains',grade:'T',label:'Tidak Hadir'}]},
+  { id:'CL028A035', name:'Nur Amylia Shahiera binti Din', ic:'081016-06-0460', cefr:'TH', cefrSkills:{reading:'TH',writing:'TH',speaking:'TH',listening:'TH'}, sijil:'TIADA', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'T',label:'Tidak Hadir'},{code:'1119',sub:'Bahasa Inggeris',grade:'T',label:'Tidak Hadir'},{code:'1223',sub:'Pendidikan Islam',grade:'T',label:'Tidak Hadir'},{code:'1249',sub:'Sejarah',grade:'T',label:'Tidak Hadir'},{code:'1449',sub:'Matematik',grade:'T',label:'Tidak Hadir'},{code:'1511',sub:'Sains',grade:'T',label:'Tidak Hadir'}]},
+  { id:'CL028A036', name:'Raman A/L Bah Pos', ic:'080420-06-0281', cefr:'A1', cefrSkills:{reading:'A2',writing:'Pre A1',speaking:'A1',listening:'A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'E',label:'Lulus'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'G',label:'Gagal'},{code:'1249',sub:'Sejarah',grade:'E',label:'Lulus'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'G',label:'Gagal'}]},
+  { id:'CL028A037', name:'Shazuan A/L Seh', ic:'080718-10-0477', cefr:'A2', cefrSkills:{reading:'A2',writing:'A1',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'E',label:'Lulus'},{code:'1225',sub:'Pendidikan Moral',grade:'C',label:'Kepujian'},{code:'1249',sub:'Sejarah',grade:'E',label:'Lulus'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'E',label:'Lulus'}]},
+  { id:'CL028A038', name:'Siti Aisyah binti Spawi', ic:'081011-06-0074', cefr:'A1', cefrSkills:{reading:'A2',writing:'A1',speaking:'A1',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1223',sub:'Pendidikan Islam',grade:'C+',label:'Kepujian Atas'},{code:'1249',sub:'Sejarah',grade:'E',label:'Lulus'},{code:'1449',sub:'Matematik',grade:'E',label:'Lulus'},{code:'1511',sub:'Sains',grade:'D',label:'Lulus Atas'}]},
+  { id:'CL028A039', name:'Syafira Afika A/P Sapie', ic:'080205-10-0498', cefr:'A2', cefrSkills:{reading:'A2',writing:'A2',speaking:'B1',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'B',label:'Kepujian Tinggi'},{code:'1119',sub:'Bahasa Inggeris',grade:'D',label:'Lulus Atas'},{code:'1225',sub:'Pendidikan Moral',grade:'C+',label:'Kepujian Atas'},{code:'1249',sub:'Sejarah',grade:'D',label:'Lulus Atas'},{code:'1449',sub:'Matematik',grade:'E',label:'Lulus'},{code:'1511',sub:'Sains',grade:'C',label:'Kepujian'}]},
+  { id:'CL028A040', name:'Yayed Almizan A/L Kamaruzaman', ic:'080720-06-0443', cefr:'A2', cefrSkills:{reading:'A2',writing:'A2',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'E',label:'Lulus'},{code:'1225',sub:'Pendidikan Moral',grade:'C+',label:'Kepujian Atas'},{code:'1249',sub:'Sejarah',grade:'D',label:'Lulus Atas'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'E',label:'Lulus'}]},
+  { id:'CL028A041', name:'Zabry A/L Rahim', ic:'080205-06-0473', cefr:'TH', cefrSkills:{reading:'TH',writing:'TH',speaking:'TH',listening:'TH'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'E',label:'Lulus'},{code:'1119',sub:'Bahasa Inggeris',grade:'T',label:'Tidak Hadir'},{code:'1225',sub:'Pendidikan Moral',grade:'G',label:'Gagal'},{code:'1249',sub:'Sejarah',grade:'E',label:'Lulus'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'G',label:'Gagal'}]},
+  { id:'CL028A042', name:'Badrizi A/L Baharum', ic:'081201-06-0331', cefr:'A1', cefrSkills:{reading:'A2',writing:'Pre A1',speaking:'A1',listening:'A1'}, sijil:'PERNYATAAN', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'E',label:'Lulus'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'G',label:'Gagal'},{code:'1249',sub:'Sejarah',grade:'G',label:'Gagal'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'G',label:'Gagal'},{code:'2611',sub:'Pend. Seni Visual',grade:'C',label:'Kepujian'}]},
+  { id:'CL028A043', name:'Bah Jerry A/L Along', ic:'081128-06-0609', cefr:'A2', cefrSkills:{reading:'A2',writing:'A1',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'C+',label:'Kepujian Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'E',label:'Lulus'},{code:'1225',sub:'Pendidikan Moral',grade:'C',label:'Kepujian'},{code:'1249',sub:'Sejarah',grade:'D',label:'Lulus Atas'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'C',label:'Kepujian'},{code:'2611',sub:'Pend. Seni Visual',grade:'B',label:'Kepujian Tinggi'}]},
+  { id:'CL028A044', name:'Marzawina binti Ana', ic:'080925-08-0552', cefr:'A2', cefrSkills:{reading:'A2',writing:'A2',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'D',label:'Lulus Atas'},{code:'1119',sub:'Bahasa Inggeris',grade:'E',label:'Lulus'},{code:'1223',sub:'Pendidikan Islam',grade:'B',label:'Kepujian Tinggi'},{code:'1249',sub:'Sejarah',grade:'D',label:'Lulus Atas'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'D',label:'Lulus Atas'},{code:'2611',sub:'Pend. Seni Visual',grade:'B+',label:'Kepujian Tertinggi'}]},
+  { id:'CL028A045', name:'Mudah A/L Bah Saem', ic:'080708-06-0301', cefr:'A2', cefrSkills:{reading:'A2',writing:'A1',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'L',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'C',label:'Kepujian'},{code:'1119',sub:'Bahasa Inggeris',grade:'G',label:'Gagal'},{code:'1225',sub:'Pendidikan Moral',grade:'E',label:'Lulus'},{code:'1249',sub:'Sejarah',grade:'D',label:'Lulus Atas'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'E',label:'Lulus'},{code:'2611',sub:'Pend. Seni Visual',grade:'C+',label:'Kepujian Atas'}]},
+  { id:'CL028A046', name:'Nordiana A/P Bah Him', ic:'081121-06-0534', cefr:'A2', cefrSkills:{reading:'A2',writing:'A2',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'B',label:'Kepujian Tinggi'},{code:'1119',sub:'Bahasa Inggeris',grade:'D',label:'Lulus Atas'},{code:'1225',sub:'Pendidikan Moral',grade:'B+',label:'Kepujian Tertinggi'},{code:'1249',sub:'Sejarah',grade:'B+',label:'Kepujian Tertinggi'},{code:'1449',sub:'Matematik',grade:'C+',label:'Kepujian Atas'},{code:'1511',sub:'Sains',grade:'A',label:'Cemerlang Tinggi'},{code:'2611',sub:'Pend. Seni Visual',grade:'A-',label:'Cemerlang'}]},
+  { id:'CL028A047', name:'Nur Alya Nadhirah binti Mohamad Hafiz', ic:'081109-14-0144', cefr:'A2', cefrSkills:{reading:'A2',writing:'A2',speaking:'A2',listening:'A1'}, sijil:'SIJIL', gender:'P',
+    results:[{code:'1103',sub:'Bahasa Melayu',grade:'C',label:'Kepujian'},{code:'1119',sub:'Bahasa Inggeris',grade:'E',label:'Lulus'},{code:'1223',sub:'Pendidikan Islam',grade:'D',label:'Lulus Atas'},{code:'1249',sub:'Sejarah',grade:'D',label:'Lulus Atas'},{code:'1449',sub:'Matematik',grade:'G',label:'Gagal'},{code:'1511',sub:'Sains',grade:'D',label:'Lulus Atas'},{code:'2611',sub:'Pend. Seni Visual',grade:'T',label:'Tidak Hadir'}]},
+];
+
+const SUBJECTS = [
+  {code:'1103', name:'Bahasa Melayu', icon:'📖', color:'#3266ad', gpmp25:6.49, gpmp24:5.67, pass25:95.35, pass24:100, cemerlang:0, kepujian:37.21, lulus:58.14},
+  {code:'1119', name:'Bahasa Inggeris', icon:'🇬🇧', color:'#e05c2a', gpmp25:8.43, gpmp24:8.41, pass25:45.24, pass24:33.33, cemerlang:0, kepujian:2.38, lulus:42.86},
+  {code:'1225', name:'Pendidikan Moral', icon:'⚖️', color:'#7c3aed', gpmp25:6.63, gpmp24:5.04, pass25:70, pass24:88.46, cemerlang:2.5, kepujian:47.5, lulus:20},
+  {code:'1249', name:'Sejarah', icon:'🏛️', color:'#0891b2', gpmp25:7.09, gpmp24:5.74, pass25:86.05, pass24:92.59, cemerlang:2.33, kepujian:20.93, lulus:62.79},
+  {code:'1449', name:'Matematik', icon:'🔢', color:'#dc2626', gpmp25:8.56, gpmp24:8.07, pass25:20.93, pass24:48.15, cemerlang:2.33, kepujian:2.33, lulus:16.28},
+  {code:'1511', name:'Sains', icon:'🔬', color:'#059669', gpmp25:7.12, gpmp24:5.81, pass25:74.42, pass24:92.59, cemerlang:4.65, kepujian:18.6, lulus:51.16},
+  {code:'2611', name:'Pend. Seni Visual', icon:'🎨', color:'#d97706', gpmp25:3.83, gpmp24:5.5, pass25:100, pass24:100, cemerlang:16.67, kepujian:83.33, lulus:0},
+  {code:'7203', name:'Pemprosesan Makanan', icon:'🍽️', color:'#be185d', gpmp25:3.50, gpmp24:2.63, pass25:100, pass24:100, cemerlang:38.46, kepujian:50, lulus:11.54},
+];
+
+const GRADE_COLORS = {'A+':'#059669','A':'#059669','A-':'#10b981','B+':'#0284c7','B':'#0ea5e9','C+':'#7c3aed','C':'#9333ea','D':'#d97706','E':'#f59e0b','G':'#dc2626','T':'#9ca3af'};
+
+function gradeClass(g){
+  if(g==='A+' || g==='A' || g==='A-') return 'grade-A';
+  if(g==='B+' || g==='B') return 'grade-Bp';
+  if(g==='C+' || g==='C') return 'grade-Cp';
+  if(g==='D') return 'grade-D';
+  return 'grade-G';
+}
+
+function getInitials(name){
+  return name.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
+}
+
+const avatarColors = ['#dbeafe','#fce7f3','#d1fae5','#fef3c7','#ede9fe','#fee2e2','#e0f2fe','#fdf2f8'];
+const textColors = ['#1e40af','#9d174d','#065f46','#92400e','#5b21b6','#991b1b','#075985','#701a75'];
+
+function getAvatarStyle(idx){
+  const i = idx % avatarColors.length;
+  return `background: ${avatarColors[i]}; color: ${textColors[i]};`;
+}
+
+function spmShowSection(id){
+  document.querySelectorAll('.spm-section').forEach(s=>s.classList.remove('spm-active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('spm-active'));
+  document.getElementById(id).classList.add('spm-active');
+  event.target.classList.add('spm-active');
+}
+
+let subjectChartInstance = null;
+
+function buildSubjectList(){
+  const el = document.getElementById('spm-subjectList');
+  el.innerHTML = SUBJECTS.map((s,i)=>`
+    <div class="subject-row" onclick="showSubjectDetail(${i})">
+      <div class="subject-icon" style="background:${s.color}22;">${s.icon}</div>
+      <div class="subject-info">
+        <div class="subject-name">${s.name}</div>
+        <div class="subject-pass">Pass rate: ${s.pass25.toFixed(1)}%</div>
+        <div class="progress-mini"><div class="progress-mini-fill" style="width:${s.pass25}%;background:${s.color};"></div></div>
+      </div>
+      <div class="subject-gpmp" style="color:${s.gpmp25<5?'#059669':s.gpmp25<7?'#d97706':'#dc2626'};">${s.gpmp25.toFixed(2)}</div>
+    </div>`).join('');
+}
+
+function showSubjectDetail(idx){
+  const s = SUBJECTS[idx];
+  const card = document.getElementById('spm-subjectDetailCard');
+  card.style.display = 'block';
+  document.getElementById('spm-subjectDetailTitle').textContent = s.name + ' — grade breakdown';
+
+  const gradeData = {};
+  SPM_STUDENTS.forEach(st=>{
+    const r = st.results.find(r=>r.code===s.code);
+    if(r && r.grade!=='T') gradeData[r.grade] = (gradeData[r.grade]||0)+1;
+  });
+
+  const labels = ['A+','A','A-','B+','B','C+','C','D','E','G'];
+  const data = labels.map(l=>gradeData[l]||0);
+  const colors = labels.map(l=>GRADE_COLORS[l]);
+
+  if(subjectChartInstance) subjectChartInstance.destroy();
+  subjectChartInstance = new Chart(document.getElementById('spm-subjectGradeChart'),{
+    type:'bar',
+    data:{labels,datasets:[{data,backgroundColor:colors,borderRadius:6,borderSkipped:false}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{color:'#888'}},y:{beginAtZero:true,grid:{color:'rgba(128,128,128,0.1)'},ticks:{color:'#888',stepSize:1}}}}
+  });
+
+  document.getElementById('spm-subjectStats').innerHTML = `
+    <div class="trend-row"><span class="trend-label">GPMP 2025</span><span class="trend-val">${s.gpmp25.toFixed(2)}</span></div>
+    <div class="trend-row"><span class="trend-label">GPMP 2024</span><span class="trend-val">${s.gpmp24.toFixed(2)}</span></div>
+    <div class="trend-row"><span class="trend-label">Pass rate</span><span class="trend-val">${s.pass25.toFixed(1)}%</span></div>
+    <div class="trend-row"><span class="trend-label">Cemerlang (A)</span><span class="trend-val">${s.cemerlang.toFixed(1)}%</span></div>
+    <div class="trend-row"><span class="trend-label">Kepujian (B-C)</span><span class="trend-val">${s.kepujian.toFixed(1)}%</span></div>`;
+
+  card.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function buildStudentGrid(list){
+  const el = document.getElementById('spm-studentGrid');
+  el.innerHTML = list.map((s,i)=>{
+    const globalIdx = SPM_STUDENTS.indexOf(s);
+    return `<div class="student-card" onclick="showStudentDetail(${globalIdx})">
+      <div class="student-card-header">
+        <div class="avatar" style="${getAvatarStyle(globalIdx)}">${getInitials(s.name)}</div>
+        <div style="flex:1;min-width:0;">
+          <div class="student-name">${s.name}</div>
+          <div class="student-id">${s.id} · ${s.gender}</div>
+        </div>
+        ${s.cefr!=='TH'?`<div class="cefr-badge cefr-${s.cefr}">${s.cefr}</div>`:'<div style="font-size:11px;color:var(--text2);">TH</div>'}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function spmFilterStudents(q){
+  const filtered = SPM_STUDENTS.filter(s=>s.name.toLowerCase().includes(q.toLowerCase())||s.id.includes(q));
+  buildStudentGrid(filtered);
+}
+
+function showStudentDetail(idx){
+  const s = SPM_STUDENTS[idx];
+  document.getElementById('studentListView').style.display = 'none';
+  document.getElementById('studentDetailView').classList.add('visible');
+
+  const sijilBg = s.sijil==='SIJIL'?'#d1fae5':s.sijil==='PERNYATAAN'?'#fef3c7':'#fee2e2';
+  const sijilColor = s.sijil==='SIJIL'?'#065f46':s.sijil==='PERNYATAAN'?'#92400e':'#991b1b';
+
+  const resultsHTML = s.results.map(r=>`
+    <div class="result-row">
+      <div class="result-subject">${r.sub}</div>
+      <div class="result-grade ${gradeClass(r.grade)}">${r.grade}</div>
+      <div class="result-label">${r.label}</div>
+    </div>`).join('');
+
+  let cefrSection = '';
+  if(s.cefr !== 'TH'){
+    cefrSection = `<div class="card" style="margin-top:1rem;">
+      <div class="card-title">CEFR English — ${s.cefr}</div>
+      <div class="cefr-skills">
+        <div class="skill-card"><div class="skill-name">Reading & Use</div><div class="skill-level">${s.cefrSkills.reading}</div></div>
+        <div class="skill-card"><div class="skill-name">Writing</div><div class="skill-level">${s.cefrSkills.writing}</div></div>
+        <div class="skill-card"><div class="skill-name">Speaking</div><div class="skill-level">${s.cefrSkills.speaking}</div></div>
+        <div class="skill-card"><div class="skill-name">Listening</div><div class="skill-level">${s.cefrSkills.listening}</div></div>
+      </div>
+    </div>`;
+  }
+
+  document.getElementById('studentDetailContent').innerHTML = `
+    <div class="detail-header">
+      <div class="detail-avatar" style="${getAvatarStyle(idx)}">${getInitials(s.name)}</div>
+      <div>
+        <div class="detail-name">${s.name}</div>
+        <div class="detail-meta">${s.ic} · ${s.id}</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap;">
+      <span style="background:${sijilBg};color:${sijilColor};font-size:12px;font-weight:600;padding:4px 12px;border-radius:8px;">${s.sijil}</span>
+      <span style="background:var(--surface2);color:var(--text2);font-size:12px;padding:4px 12px;border-radius:8px;">${s.gender==='L'?'Lelaki':'Perempuan'}</span>
+    </div>
+    <div class="card">
+      <div class="card-title">SPM 2025 results</div>
+      ${resultsHTML}
+    </div>
+    ${cefrSection}
+  `;
+}
+
+function backToList(){
+  document.getElementById('studentListView').style.display = 'block';
+  document.getElementById('studentDetailView').classList.remove('visible');
+}
+
+function buildCefrA2List(){
+  const el = document.getElementById('spm-cefrA2List');
+  const b1speaking = SPM_STUDENTS.filter(s=>s.cefrSkills.speaking==='B1' && s.cefr==='A2');
+  el.innerHTML = b1speaking.map(s=>`
+    <div class="result-row">
+      <div class="result-subject" style="font-size:13px;">${s.name}</div>
+      <div style="font-size:11px;color:var(--text2);">Speaking: B1</div>
+    </div>`).join('') || '<div style="font-size:13px;color:var(--text2);padding:8px 0;">No records</div>';
+}
+
+function buildTrendList(){
+  const el = document.getElementById('spm-trendList');
+  el.innerHTML = SUBJECTS.map(s=>`
+    <div class="trend-row">
+      <div class="trend-label">${s.icon} ${s.name}</div>
+      <div>
+        <div class="trend-val">${s.pass25.toFixed(1)}%</div>
+        <div class="trend-change ${s.pass25>s.pass24?'down':'up'}">${s.pass25>s.pass24?'↓':'↑'} vs ${s.pass24.toFixed(1)}%</div>
+      </div>
+    </div>`).join('');
+}
+
+function initCharts(){
+  const isDark = matchMedia('(prefers-color-scheme: dark)').matches;
+  const textColor = isDark ? '#ccc' : '#666';
+  const gridColor = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)';
+
+  new Chart(document.getElementById('spm-gradePie'),{
+    type:'doughnut',
+    data:{
+      labels:['Cemerlang (A+/A/A-)','Kepujian Tinggi (B+/B)','Kepujian (C+/C)','Lulus (D/E)','Gagal (G)'],
+      datasets:[{data:[2,7,16,18,23],backgroundColor:['#059669','#0284c7','#7c3aed','#d97706','#dc2626'],hoverOffset:6,borderWidth:2,borderColor: isDark?'#1a1a1a':'#fff'}]
+    },
+    options:{responsive:true,maintainAspectRatio:false,cutout:'65%',plugins:{legend:{display:false}}}
+  });
+  const legend = document.getElementById('spm-gradePieLegend');
+  const pItems = [['#059669','Cemerlang 2'],['#0284c7','Kep. Tinggi 7'],['#7c3aed','Kepujian 16'],['#d97706','Lulus 18'],['#dc2626','Gagal 23']];
+  legend.innerHTML = pItems.map(([c,l])=>`<span class="pie-leg-item"><span class="pie-dot" style="background:${c}"></span>${l}</span>`).join('');
+
+  new Chart(document.getElementById('spm-achieveBar'),{
+    type:'bar',
+    data:{
+      labels:['Cemerlang\nTertinggi (A+)','Cemerlang\n(min A-)','Kepujian\nTinggi (min B)','Kepujian\n(min C)'],
+      datasets:[{data:[0,2,9,32],backgroundColor:['#059669','#10b981','#0284c7','#7c3aed'],borderRadius:8,borderSkipped:false}]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{color:textColor,font:{size:10}}},y:{beginAtZero:true,grid:{color:gridColor},ticks:{color:textColor,stepSize:5}}}}
+  });
+
+  new Chart(document.getElementById('spm-cefrBar'),{
+    type:'bar',
+    data:{
+      labels:['B1','A2','A1','Not assessed'],
+      datasets:[{data:[1,18,19,5],backgroundColor:['#059669','#0284c7','#d97706','#9ca3af'],borderRadius:8,borderSkipped:false}]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{color:textColor}},y:{beginAtZero:true,grid:{color:gridColor},ticks:{color:textColor,stepSize:5}}}}
+  });
+
+  new Chart(document.getElementById('cefrDonut'),{
+    type:'doughnut',
+    data:{
+      labels:['B1 (2.4%)','A2 (42.9%)','A1 (45.2%)','TH/N (9.5%)'],
+      datasets:[{data:[1,18,19,4],backgroundColor:['#059669','#0284c7','#d97706','#9ca3af'],borderWidth:2,borderColor: isDark?'#1a1a1a':'#fff',hoverOffset:6}]
+    },
+    options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{display:false}}}
+  });
+  const cefrLeg = document.getElementById('cefrDonutLegend');
+  cefrLeg.innerHTML = [['#059669','B1 — 1 (2.4%)'],['#0284c7','A2 — 18 (42.9%)'],['#d97706','A1 — 19 (45.2%)'],['#9ca3af','TH/N — 4']].map(([c,l])=>`<span class="pie-leg-item"><span class="pie-dot" style="background:${c}"></span>${l}</span>`).join('');
+
+  new Chart(document.getElementById('cefrSkills'),{
+    type:'bar',
+    data:{
+      labels:['Reading','Writing','Speaking','Listening'],
+      datasets:[
+        {label:'B1',data:[1,1,5,1],backgroundColor:'#059669',borderRadius:4,borderSkipped:false},
+        {label:'A2',data:[24,13,15,0],backgroundColor:'#0284c7',borderRadius:4,borderSkipped:false},
+        {label:'A1',data:[3,8,15,30],backgroundColor:'#d97706',borderRadius:4,borderSkipped:false},
+        {label:'Pre A1',data:[0,10,0,4],backgroundColor:'#ef4444',borderRadius:4,borderSkipped:false},
+      ]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{stacked:true,grid:{display:false},ticks:{color:textColor}},y:{stacked:true,grid:{color:gridColor},ticks:{color:textColor}}}}
+  });
+
+  new Chart(document.getElementById('gpsTrend'),{
+    type:'bar',
+    data:{
+      labels:['2024 (27 students)','2025 (43 students)'],
+      datasets:[{data:[6.08,6.94],backgroundColor:['#93c5fd','#1d4ed8'],borderRadius:10,borderSkipped:false}]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{color:textColor}},y:{beginAtZero:false,min:5,max:8,grid:{color:gridColor},ticks:{color:textColor}}}}
+  });
+
+  new Chart(document.getElementById('subjectTrend'),{
+    type:'bar',
+    data:{
+      labels:SUBJECTS.map(s=>s.name.replace('Pendidikan ','Pend. ').replace('Pemprosesan Makanan','Makanan')),
+      datasets:[
+        {label:'2024',data:SUBJECTS.map(s=>s.gpmp24),backgroundColor:'#93c5fd',borderRadius:4,borderSkipped:false},
+        {label:'2025',data:SUBJECTS.map(s=>s.gpmp25),backgroundColor:'#1d4ed8',borderRadius:4,borderSkipped:false},
+      ]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{color:textColor,font:{size:10},maxRotation:45}},y:{beginAtZero:true,max:10,grid:{color:gridColor},ticks:{color:textColor}}},indexAxis:'x'}
+  });
+}
+
+buildSubjectList();
+buildStudentGrid(SPM_STUDENTS);
+buildCefrA2List();
+buildTrendList();
+initCharts();
+
+    buildSubjectList && buildSubjectList();
+    buildStudentGrid && buildStudentGrid(SPM_STUDENTS);
+    buildCefrA2List && buildCefrA2List();
+    buildTrendList && buildTrendList();
+    setTimeout(() => { try { initCharts(); } catch(e) { console.error('SPM chart error:', e); } }, 200);
+  })();
+}
+
+</script>
+<script>
+
+// ===== GURU & STAF =====
+const STAFF_GURU = [{"bil":1,"nama":"EN. MAT DAUD BIN MAMAT","no_kp":"670921115041","jawatan":"PENGETUA","gred":"DG14 (KUP)","catatan":"SEJARAH"},{"bil":2,"nama":"PN. SITI AHSAH BINTI ALI","no_kp":"711220015396","jawatan":"GPK PENTADBIRAN","gred":"DG14 (KUP)","catatan":"MPV"},{"bil":3,"nama":"PN. MARIAM BINTI ANSON @ HASSAN","no_kp":"781102065222","jawatan":"GPK HAL EHWAL MURID","gred":"DG12 (KUP)","catatan":"MATEMATIK/P.AM"},{"bil":4,"nama":"EN. HAMDAN BIN ZAKARIA","no_kp":"660913065241","jawatan":"GPK KOKURIKULUM","gred":"DG13 (KUP)","catatan":"SEJARAH"},{"bil":5,"nama":"PN. HAITUN BINTI KAMARAZAMAN","no_kp":"740801065298","jawatan":"KB BAHASA","gred":"DG12 (KUP)","catatan":"B.MELAYU"},{"bil":6,"nama":"PN. JUNAIDAH BINTI HUSIN","no_kp":"850831065640","jawatan":"KB SAINS DAN MATEMATIK","gred":"DG10 (KUP)","catatan":"MATEMATIK"},{"bil":7,"nama":"PN. SUHANA BINTI MOHD SAINI","no_kp":"710302085940","jawatan":"KB KEMANUSIAAN","gred":"DG12 (KUP)","catatan":"P.MORAL"},{"bil":8,"nama":"PN. SITI NUR EFFA ZURINA BINTI NOZAHA","no_kp":"860313335072","jawatan":"KB TEKNIK & VOKASIONAL","gred":"DG10 (KUP)","catatan":"KH"},{"bil":9,"nama":"PN. SITI NOOR AINI BINTI AB HAMID","no_kp":"880103035416","jawatan":"GURU BIMBINGAN (SM)","gred":"DG10 (KUP)","catatan":"KAUNSELING"},{"bil":10,"nama":"PN. HASLINDA BINTI ALIAS","no_kp":"710101036130","jawatan":"PPP (SM)","gred":"DG12 (KUP)","catatan":"B.MELAYU"},{"bil":11,"nama":"EN. WAN AIRIL AZMIL BIN WAN OTHMAN","no_kp":"820925115031","jawatan":"PPP (SR)","gred":"DG12 (KUP)","catatan":"KEM.HIDUP"},{"bil":12,"nama":"EN. NORHASMAE BIN MOHAMED","no_kp":"820303035053","jawatan":"PPP (SM)","gred":"DG12 (KUP)","catatan":"MATEMATIK"},{"bil":13,"nama":"PN. UMI UMAIRAH BINTI MOHAMAD","no_kp":"901031065594","jawatan":"PPP (SM)","gred":"DG10 (KUP)","catatan":"P.ISLAM"},{"bil":14,"nama":"PN. SITI WAHIDA BINTI AB HAMID","no_kp":"880526035186","jawatan":"PPP (SM)","gred":"DG9","catatan":"B.INGGERIS"},{"bil":15,"nama":"CIK ROSMERAH BINTI CHE SOH","no_kp":"801001035302","jawatan":"PPP (SR)","gred":"DG10 (KUP)","catatan":"P.ISLAM"},{"bil":16,"nama":"EN. ADIFAZLIZA BIN ROSLY","no_kp":"820502065773","jawatan":"PPP (SR)","gred":"DG10 (KUP)","catatan":"PJK"},{"bil":17,"nama":"EN. ABD HAFIZ BIN AB SHATTAR","no_kp":"840619035031","jawatan":"PPP (SR)","gred":"DG10 (KUP)","catatan":"P.ISLAM"},{"bil":18,"nama":"PN. MASDALIA BINTI MOHAMAD","no_kp":"830507065616","jawatan":"PPP (SR)","gred":"DG10 (KUP)","catatan":"PEND.KHAS"},{"bil":19,"nama":"EN. SYAZRUL IZWANI HAFIES BIN AMRAN","no_kp":"900424085719","jawatan":"PPP (SR)","gred":"DG10 (KUP)","catatan":"PEND.KHAS (SR)"},{"bil":20,"nama":"PN. NORHANIZA A/P JAMALUDIN","no_kp":"900309065034","jawatan":"PPP (SR)","gred":"DG10 (KUP)","catatan":"B.MELAYU"},{"bil":21,"nama":"PN. FATEEN AMIRAH BINTI RAMLI","no_kp":"910710025652","jawatan":"PPP (SR)","gred":"DG10 (KUP)","catatan":"KT"},{"bil":22,"nama":"CIK NURUL ADIBAH BINTI YASIN","no_kp":"960620465078","jawatan":"PPP (SM)","gred":"DG9","catatan":"SEJARAH"},{"bil":23,"nama":"PN. NIK NURAIN SABRINA BINTI NIK MOHD KAMIL","no_kp":"970329015134","jawatan":"PPP (SR)","gred":"DG9","catatan":"B.INGGERIS"},{"bil":24,"nama":"EN. NOR KHAIRUL HAFIZI BIN ROSLI","no_kp":"930911065675","jawatan":"PPP (SM)","gred":"DG9","catatan":"B.INGGERIS"},{"bil":25,"nama":"PN. ILI DALILA BINTI MAT AMIN","no_kp":"920218115516","jawatan":"PPP (SM)","gred":"DG9","catatan":"ERT"},{"bil":26,"nama":"PN. NUR AINA BINTI ABDULLAH","no_kp":"920813035692","jawatan":"PPP (SM)","gred":"DG9","catatan":"RBT"},{"bil":27,"nama":"PN. NURFATIN AMIRAH BINTI MOHD ROZI","no_kp":"920603035272","jawatan":"PPP (SM)","gred":"DG9","catatan":"MULTIMEDIA"},{"bil":28,"nama":"PN. NAJWA HAFIZA BINTI ROSLAN","no_kp":"960129115772","jawatan":"PPP (SM)","gred":"DG9","catatan":"BIOLOGI"},{"bil":29,"nama":"PN INNIANA A/P MUNAN","no_kp":"980809065260","jawatan":"PPP (SR)","gred":"DG9","catatan":"B.MELAYU"},{"bil":30,"nama":"EN. ZULKIFLI BIN JALI","no_kp":"730826035061","jawatan":"PPP (SR)","gred":"DG12 (KUP)","catatan":"P.ISLAM"},{"bil":31,"nama":"CIK NURUL HUDA BINTI MAZLAN","no_kp":"991105025264","jawatan":"PPP (SM)","gred":"DG9","catatan":"MPV"},{"bil":32,"nama":"PN. NORAIN BINTI KAMARULZAMAN","no_kp":"891122035706","jawatan":"PPP (SM)","gred":"DG9","catatan":"PEND.KHAS (SM)"},{"bil":33,"nama":"EN. MOHAMAD NUR ALIF BIN MOHD FAZIL","no_kp":"980624065037","jawatan":"PPP (SR)","gred":"DG9","catatan":"PSV (SR)"},{"bil":34,"nama":"EN. LOKMAN HAKIM BIN ABDULLAH","no_kp":"980413065539","jawatan":"PPP (SM)","gred":"DG9","catatan":"GEOGRAFI"},{"bil":35,"nama":"EN. MOHD FIRDAUS BIN WAN MUSTAPHA","no_kp":"850208035183","jawatan":"PPP (SM)","gred":"DG9","catatan":"PEND.KHAS (SM)"},{"bil":36,"nama":"PN. UMI KALSOM BINTI ABD MAJID","no_kp":"740606075044","jawatan":"PPP (SM)","gred":"DG12 (KUP)","catatan":"SAINS"},{"bil":37,"nama":"EN. MUHD IBRAHIM BIN MAT YAHYA","no_kp":"940823115571","jawatan":"PPP (SR)","gred":"DG9 (KON)","catatan":"PSV (SR)"},{"bil":38,"nama":"PN. FAZILAH BINTI MAT DATAR","no_kp":"920921095158","jawatan":"PPP (SM)","gred":"DG9","catatan":"PEND.KHAS (SM)"},{"bil":39,"nama":"PN. NATASHA A/P APOK","no_kp":"961021335276","jawatan":"PPP (SR)","gred":"DG9","catatan":"PEMULIHAN KHAS"},{"bil":40,"nama":"EN. AMIRRUL NAZRIN BIN IZMAN","no_kp":"920616065163","jawatan":"PPP (SM)","gred":"DG9","catatan":"RBT"},{"bil":41,"nama":"CIK NURUL ASYIKIN BINTI ZAMRI","no_kp":"010609110066","jawatan":"PPP (SR)","gred":"DG9 (INTERIM)","catatan":"PSV (SR)"},{"bil":42,"nama":"CIK NARIJAH A/P MAN","no_kp":"011221060714","jawatan":"PPP (SR)","gred":"DG9 (INTERIM)","catatan":"BIMBINGAN DAN KAUNSELING (SR)"},{"bil":43,"nama":"CIK NUR SYAZWINA SIMA BINTI ISMAIL","no_kp":"010220100492","jawatan":"PPP (SR)","gred":"DG9 (INTERIM)","catatan":"SEJARAH (SR)"},{"bil":44,"nama":"CIK HANIS FARHANA BINTI BAHAZANAN","no_kp":"010622100102","jawatan":"PPP (SR)","gred":"DG9 (INTERIM)","catatan":"PRASEKOLAH"},{"bil":45,"nama":"CIK TUAN NOR ATHIRAH BINTI TUAN RAZAK","no_kp":"010820030408","jawatan":"PPP (SR)","gred":"DG9 (INTERIM)","catatan":"SEJARAH (SR)"},{"bil":46,"nama":"EN. MUHAMMAD ASYRAF BIN ZAINAL","no_kp":"991001085553","jawatan":"PPP (SM)","gred":"DG9 (INTERIM)","catatan":"PJK"},{"bil":47,"nama":"CIK. VENESSA HI LI JIE","no_kp":"000525060146","jawatan":"PPP (SR)","gred":"DG9 (INTERIM)","catatan":"B.MELAYU"},{"bil":48,"nama":"PN. NOR MAZIANA BINTI CHE NOR","no_kp":"930128065382","jawatan":"PPP (SM)","gred":"DG9","catatan":"MULTIMEDIA/ICT SAINS KOMPUTER"},{"bil":49,"nama":"CIK AYU NATASYA BINTI MUHD ZAIMI","no_kp":"010316020446","jawatan":"PPP (SM)","gred":"DG9 (INTERIM)","catatan":"MPV (AUTOMOTIF)"},{"bil":50,"nama":"CIK NUR FATHONAH BINTI HEGRETUL AL-AMIN","no_kp":"000812060106","jawatan":"PPP (SM)","gred":"DG9 (INTERIM)","catatan":"PSV"},{"bil":51,"nama":"MUHAMMAD IZUDDIN BIN MAT HASSAN","no_kp":"020828110233","jawatan":"PPP (SR)","gred":"DG9 (INTERIM)","catatan":"PEND.KHAS (SR)"},{"bil":52,"nama":"LEO ISNEL BIN LONG ROSLEE","no_kp":"20306080049","jawatan":"PPP (SR)","gred":"DG9 (INTERIM)","catatan":"BAHASA MELAYU (SR)"},{"bil":53,"nama":"IZYAN MAISARAH BINTI KAMARUZAMAN","no_kp":"11213030646","jawatan":"PPP (SR)","gred":"DG9 (INTERIM)","catatan":"BAHASA MELAYU (SR)"},{"bil":54,"nama":"NURUL LIYANA BINTI ABD SAMAT","no_kp":"21026070094","jawatan":"PPP (SR)","gred":"DG9 (INTERIM)","catatan":"SEJARAH (SR)"},{"bil":55,"nama":"MOHD ATHUF ALIFI BIN SUHAIZAN","no_kp":"890907035947","jawatan":"PPP (SR)","gred":"DG9","catatan":"PENDIDIKAN ISLAM"},{"bil":56,"nama":"MUHAMMAD FAIQ NAQIUDDIN BIN BORHAN","no_kp":"001229-06-0509","jawatan":"PPP (SM)","gred":"DG9 (INTERIM)","catatan":"GEOGRAFI"},{"bil":57,"nama":"NOR AMIRAH BINTI AHMAD BAKRI","no_kp":"000910-03-1026","jawatan":"PPP (SM)","gred":"DG9 (INTERIM)","catatan":"BAHASA MELAYU"}];
+const STAFF_SOKONGAN = [{"bil":1,"nama":"EN. AHMAD SAFUAN BIN IBRAHIM","no_kp":"920902065877","jawatan":"PEMBANTU TADBIR","gred":"N1","catatan":"(MEMANGKU N2)"},{"bil":2,"nama":"EN. MOHAMAD FAHAMI NIZAM BIN ABDUL-LAH SANI","no_kp":"910428065415","jawatan":"PEMBANTU TADBIR","gred":"N1","catatan":""},{"bil":3,"nama":"PN. NURUL SYAFIQAH BINTI ZULKFLY","no_kp":"950504065182","jawatan":"PEMBANTU TADBIR","gred":"N1","catatan":""},{"bil":4,"nama":"PN. YAN ROFINA BINTI MOHAMAD","no_kp":"920723085610","jawatan":"PEMBANTU MAKMAL","gred":"C1","catatan":""},{"bil":5,"nama":"EN. MOHD SAZLI BIN SAIFUDIN","no_kp":"850518065599","jawatan":"PEMBANTU PENGURUSAN MURID (PKI)","gred":"N2 (KUP)","catatan":""},{"bil":6,"nama":"PN. SALASIAH BINTI ABU SAMAH","no_kp":"810512065196","jawatan":"PEMBANTU PENGURUSAN MURID (PRA)","gred":"N2 (KUP)","catatan":""},{"bil":7,"nama":"PN. UJI A/P AYOB","no_kp":"880503105110","jawatan":"PEMBANTU PENGURUSAN MURID (PKI)","gred":"N2 (KUP)","catatan":""},{"bil":8,"nama":"PN. SYAZILLA BINTI GHAZALI","no_kp":"831206035100","jawatan":"PEMBANTU PENGURUSAN MURID (A)","gred":"N2 (KUP)","catatan":""},{"bil":9,"nama":"EN. HISAMUDIN BIN MOHD YUSOP","no_kp":"870416065393","jawatan":"PEMBANTU PENGURUSAN MURID (PKI)","gred":"N2 (KUP)","catatan":""},{"bil":10,"nama":"CIK NEELLEEN A/P MUNAN","no_kp":"931101065774","jawatan":"PEMBANTU PENGURUSAN MURID (PRA)","gred":"N1","catatan":""},{"bil":11,"nama":"PN. SITI MARIAM BINTI ABDUL KARIM","no_kp":"900208145684","jawatan":"PEMBANTU PENGURUSAN MURID (A)","gred":"N1","catatan":""},{"bil":12,"nama":"EN. JASWAN BIN YOK MAT","no_kp":"910924106263","jawatan":"PEMBANTU PENGURUSAN MURID (A)","gred":"N1","catatan":""},{"bil":13,"nama":"EN. ABDUL HAKIM BIN MAMAT","no_kp":"950702065407","jawatan":"PEMBANTU KHIDMAT AM (BENGKEL)","gred":"H1","catatan":""},{"bil":14,"nama":"EN. MOHD AMIN ZAHIN BIN ZARAZILA","no_kp":"911014146949","jawatan":"PEMBANTU KHIDMAT AM (PEMANDU)","gred":"H1","catatan":""},{"bil":15,"nama":"EN. ABDUL SAFAIZ BIN ABDUL RAZAK","no_kp":"920918065249","jawatan":"PEMBANTU KHIDMAT AM (PEJABAT)","gred":"H1","catatan":""}];
+
+let activeStaffTab = 'semua';
+
+const staffColors = ['#0071e3','#34c759','#ff9f0a','#ff453a','#bf5af2','#5ac8fa','#ff2d55','#32d74b','#ffd60a','#64d2ff'];
+
+function staffColor(name) {
+  let h = 0;
+  for (let c of name) h = ((h<<5)-h)+c.charCodeAt(0);
+  return staffColors[Math.abs(h) % staffColors.length];
+}
+
+function staffInitials(name) {
+  const clean = name.replace(/^(EN\.|PN\.|CIK\.|CIK)\s+/i,'').trim();
+  const p = clean.split(' ');
+  return ((p[0]||'')[0]||'') + ((p[1]||'')[0]||'');
+}
+
+function filterStaff(tab, el) {
+  activeStaffTab = tab;
+  document.querySelectorAll('.staff-tab').forEach(t => t.classList.remove('active'));
+  if (el) el.classList.add('active');
+  renderStaff();
+}
+
+function renderStaff() {
+  const q = (document.getElementById('staffSearch')?.value||'').toLowerCase().trim();
+
+  // Determine which lists to show
+  const showGuru = activeStaffTab === 'semua' || activeStaffTab === 'guru';
+  const showStaf = activeStaffTab === 'semua' || activeStaffTab === 'staf';
+
+  const filteredGuru = showGuru ? STAFF_GURU.filter(s =>
+    !q || s.nama.toLowerCase().includes(q) || s.jawatan.toLowerCase().includes(q) || s.catatan.toLowerCase().includes(q)
+  ) : [];
+
+  const filteredStaf = showStaf ? STAFF_SOKONGAN.filter(s =>
+    !q || s.nama.toLowerCase().includes(q) || s.jawatan.toLowerCase().includes(q)
+  ) : [];
+
+  let html = '';
+
+  if (filteredGuru.length) {
+    html += `<div class="staff-section-title">👨‍🏫 Guru &amp; Pengajar <span style="font-size:11px;font-weight:400;color:var(--text3)">(${filteredGuru.length})</span></div>`;
+    html += '<div class="staff-grid">';
+    filteredGuru.forEach(s => {
+      const ini = staffInitials(s.nama).toUpperCase();
+      const col = staffColor(s.nama);
+      html += `<div class="staff-card">
+        <div class="staff-avatar" style="background:${col}">${ini}</div>
+        <div class="staff-info">
+          <div class="staff-name">${s.nama}</div>
+          <div class="staff-jawatan">${s.jawatan}</div>
+          ${s.catatan ? `<div class="staff-bidang">${s.catatan}</div>` : ''}
+        </div>
+        <div class="staff-gred">${s.gred}</div>
+      </div>`;
+    });
+    html += '</div>';
+  }
+
+  if (filteredStaf.length) {
+    html += `<div class="staff-section-title">🛠️ Staf Sokongan <span style="font-size:11px;font-weight:400;color:var(--text3)">(${filteredStaf.length})</span></div>`;
+    html += '<div class="staff-grid">';
+    filteredStaf.forEach(s => {
+      const ini = staffInitials(s.nama).toUpperCase();
+      const col = staffColor(s.nama);
+      html += `<div class="staff-card">
+        <div class="staff-avatar" style="background:${col}">${ini}</div>
+        <div class="staff-info">
+          <div class="staff-name">${s.nama}</div>
+          <div class="staff-jawatan">${s.jawatan}</div>
+          ${s.catatan ? `<div class="staff-bidang">${s.catatan}</div>` : ''}
+        </div>
+        <div class="staff-gred">${s.gred}</div>
+      </div>`;
+    });
+    html += '</div>';
+  }
+
+  if (!html) html = '<div style="text-align:center;padding:40px;color:var(--text3)">Tiada rekod dijumpai</div>';
+  document.getElementById('staffList').innerHTML = html;
+}
+
+function buildStaffStats() {
+  document.getElementById('staffStats').innerHTML = `
+    <div class="staff-stat"><div class="staff-stat-val" style="color:var(--accent)">${STAFF_GURU.length + STAFF_SOKONGAN.length}</div><div class="staff-stat-lbl">Jumlah Warga</div></div>
+    <div class="staff-stat"><div class="staff-stat-val" style="color:#34c759">${STAFF_GURU.length}</div><div class="staff-stat-lbl">Guru</div></div>
+    <div class="staff-stat"><div class="staff-stat-val" style="color:#ff9f0a">${STAFF_SOKONGAN.length}</div><div class="staff-stat-lbl">Staf Sokongan</div></div>
+  `;
+}
+
+</script>
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
