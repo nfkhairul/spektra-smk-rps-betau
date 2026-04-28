@@ -1,13 +1,13 @@
-const CACHE_NAME = 'smk-rps-betau-v1';
+const CACHE_NAME = 'spektra-v1';
 const ASSETS = [
-  '/dashboardpelajar-smk-rps-betau/',
-  '/dashboardpelajar-smk-rps-betau/index.html',
-  '/dashboardpelajar-smk-rps-betau/manifest.json',
-  '/dashboardpelajar-smk-rps-betau/icon-192.png',
-  '/dashboardpelajar-smk-rps-betau/icon-512.png',
+  '/spektra-smk-rps-betau/',
+  '/spektra-smk-rps-betau/index.html',
+  '/spektra-smk-rps-betau/manifest.json',
+  '/spektra-smk-rps-betau/icon-192.png',
+  '/spektra-smk-rps-betau/icon-512.png'
 ];
 
-// Install — cache semua aset
+// Install – cache semua aset
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
@@ -15,17 +15,17 @@ self.addEventListener('install', event => {
   self.skipWaiting();
 });
 
-// Activate — buang cache lama
+// Activate – buang cache lama
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(keys =>
+    caches.keys().then(keys => 
       Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
     )
   );
   self.clients.claim();
 });
 
-// Fetch — guna cache dulu, fallback ke network
+// Fetch – guna cache dulu, fallback ke network
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request).then(cached => {
@@ -36,6 +36,6 @@ self.addEventListener('fetch', event => {
         }
         return response;
       });
-    }).catch(() => caches.match('/dashboardpelajar-smk-rps-betau/index.html'))
+    }).catch(() => caches.match('/spektra-smk-rps-betau/index.html'))
   );
 });
